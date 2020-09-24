@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2C2F33</color>
+    <color name="colorPrimaryDark">#23272A</color>
+    <color name="colorAccent">#FCA311</color>
+<!--    Krammer colors-->
+    <color name="charlestonGreen">#23272A</color>
+    <color name="jet">#2C2F33</color>
+    <color name="dimGray">#5E6063</color>
+    <color name="orangeWeb">#FCA311</color>
+    <color name="imperialRed">#E63946</color>
+    <color name="white">#ffff</color>
+</resources>
