@@ -3,6 +3,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--    Flashcard Strings-->
+    <string name="flash_card">Flash Card</string>
+    <string name="card_set">Flash Card Set</string>
+    <string name="Title">Title</string>
+    <string name="Description">Description</string>
+    <string name="Term">Term</string>
+    <string name="Definition">Definition</string>
+    <string name="card_label_front">Front</string>
+    <string name="card_label_back">Back</string>
+    <string name="create_new_set">Create New Set</string>
+    <string name="add_card">Add Card</string>
+    <string name="remove_card">Remove Card</string>
+    <string name="save">Save</string>
+    <string name="done">Done</string>
+    <string name="review">Review</string>
+    <string name="edit">Edit</string>
     <!--    Forum Strings-->
     <!--    To-Do Strings-->
     <!--    Quiz Strings-->
