@@ -22,6 +22,8 @@ public class FlashcardsHomeFragment extends Fragment {
 
     private Button buttonNewCardSet;
     private Button buttonViewCardSet;
+    private Button buttonStudyCardSet;
+    private Button buttonAllCardSet;
 
     public FlashcardsHomeFragment() {
         // Required empty public constructor
@@ -56,7 +58,7 @@ public class FlashcardsHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_flashcards_home, container, false);
 
-        //call newCardSetFragment
+        //call newFlashcardSetFragment
         buttonNewCardSet = v.findViewById(R.id.button_new_card_set);
         buttonNewCardSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +75,7 @@ public class FlashcardsHomeFragment extends Fragment {
             }
         });
 
-        //call newCardSetFragment
+        //call newFlashcardSetFragment
         buttonViewCardSet = v.findViewById(R.id.button_view_card_set);
         buttonViewCardSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +86,40 @@ public class FlashcardsHomeFragment extends Fragment {
 
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.fragment_container, viewFlashcardSetFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
+        //call StudyFlashcardSetFragment
+        buttonStudyCardSet = v.findViewById(R.id.button_study_card_set);
+        buttonStudyCardSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StudyFlashcardFragmentSet studyFlashcardFragmentSet = new StudyFlashcardFragmentSet();
+
+                FragmentManager fm = getFragmentManager();
+
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, studyFlashcardFragmentSet);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
+        //call viewAllSetsFragment
+        buttonAllCardSet = v.findViewById(R.id.button_all_card_set);
+        buttonAllCardSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewAllSetsFragment viewAllSetsFragment = new ViewAllSetsFragment();
+
+                FragmentManager fm = getFragmentManager();
+
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, viewAllSetsFragment);
                 transaction.addToBackStack(null);
 
                 transaction.commit();

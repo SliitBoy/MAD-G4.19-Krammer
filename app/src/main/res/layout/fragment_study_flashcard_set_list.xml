@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
     android:name="com.simpl.krammer.flashcards.StudyFlashcardFragmentSet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
     tools:context=".flashcards.StudyFlashcardFragmentSet"
-    tools:listitem="@layout/fragment_study_flashcard_set" />
+    android:background="@color/colorPrimaryDark">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/studySetRecyclerView"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        android:orientation="horizontal"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/fragment_study_flashcard_set" />
+
+    <Button
+        android:id="@+id/ButtonFlip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studySetRecyclerView"
+        android:text="Flip"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
