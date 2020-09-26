@@ -1,8 +1,9 @@
 package com.simpl.krammer.flashcards;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class FlashcardSet {
+public class FlashcardSet implements Serializable {
     //List to hold Card objects
     private List<Flashcard> cardSet;
     private String cardSetTitle;

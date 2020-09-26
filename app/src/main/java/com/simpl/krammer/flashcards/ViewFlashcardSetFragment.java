@@ -63,7 +63,7 @@ public class ViewFlashcardSetFragment extends Fragment {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ViewFlashcardSetFragment newInstance(int columnCount) {
+    public static ViewFlashcardSetFragment newInstance(FlashcardSet fcs) {
         ViewFlashcardSetFragment fragment = new ViewFlashcardSetFragment();
 //        Bundle args = new Bundle();
 //        args.putInt(ARG_COLUMN_COUNT, columnCount);
@@ -74,7 +74,6 @@ public class ViewFlashcardSetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -82,48 +81,21 @@ public class ViewFlashcardSetFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_view_flashcard_set_list, container, false);
 
+        if (getArguments() != null) {
+            //set FlashcardSet object from ViewAllFlashcardsFragment
+            flashcardSetObj = (FlashcardSet) getArguments().getSerializable("selectedSet");
+        }
 
-        //Firebase
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("CardSets");
+        //Set Title and Description from flashcardSet
+        setTitle = view.findViewById(R.id.TextViewFlashcardTitle);
+        setTitle.setText(flashcardSetObj.getCardSetTitle());
 
-        flashcardsSet = new ArrayList<FlashcardSet>();
-        flashcards = new ArrayList<Flashcard>();
+        //set Number of Terms
+        numOfTerms = view.findViewById(R.id.TextViewCardNumber);
+        numOfTerms.setText(flashcardSetObj.getSetSize() + " Terms");
 
-        //get cardsets from firebase
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.e("Count " ,""+snapshot.getChildrenCount());
-                //get all children under "CardSets"
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    FlashcardSet flashcardSetTemp = dataSnapshot.getValue(FlashcardSet.class);
-                    //add to List<FlashcardSet> flashcardsSet
-                    flashcardsSet.add(flashcardSetTemp);
-                }
-                flashcards = flashcardsSet.get(0).getCardSet();
-                flashcardSetObj = flashcardsSet.get(0);
-                Log.e("getTest " ,""+flashcards.get(0).getTerm());
-                Log.e("getTest " ,""+flashcards.get(1).getTerm());
-                Log.e("fcsObj " ,""+flashcardSetObj.getCardSetTitle());
-
-
-                //Set Title and Description from flashcardSet
-                setTitle = view.findViewById(R.id.TextViewFlashcardTitle);
-                setTitle.setText(flashcardSetObj.getCardSetTitle());
-
-                //set Number of Terms
-                numOfTerms = view.findViewById(R.id.TextViewCardNumber);
-                numOfTerms.setText(flashcards.size() + " Terms");
-
-                //Build RecyclerView
-                buildRecycler();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w( "loadPost:onCancelled", error.toException());
-            }
-        });
+        //Build RecyclerView
+        buildRecycler();
 
         return view;
     }

@@ -75,7 +75,7 @@ public class FlashcardsHomeFragment extends Fragment {
             }
         });
 
-        //call newFlashcardSetFragment
+        //call viewFlashcardSetFragment
         buttonViewCardSet = v.findViewById(R.id.button_view_card_set);
         buttonViewCardSet.setOnClickListener(new View.OnClickListener() {
             @Override

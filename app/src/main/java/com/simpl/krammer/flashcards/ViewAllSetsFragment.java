@@ -4,15 +4,23 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +44,7 @@ public class ViewAllSetsFragment extends Fragment {
     // RecyclerView Objects
     private View view;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ViewAllSetsRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     //List to hold all card sets
@@ -64,6 +72,7 @@ public class ViewAllSetsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
 //        if (getArguments() != null) {
 //            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -105,8 +114,6 @@ public class ViewAllSetsFragment extends Fragment {
             }
         });
 
-        // Set the adapter
-
         return view;
     }
 
@@ -122,5 +129,75 @@ public class ViewAllSetsFragment extends Fragment {
         mAdapter = new ViewAllSetsRecyclerViewAdapter(flashcardsSet);
         recyclerView.setAdapter(mAdapter);
 
+        mAdapter.setOnItemClickListener(new ViewAllSetsRecyclerViewAdapter.OnItemCLickListener() {
+            @Override
+            public void onItemClick(int position, FlashcardSet fcs) {
+                ViewFlashcardSetFragment viewFlashcardSetFragment = new ViewFlashcardSetFragment();
+
+                FragmentManager fm = getFragmentManager();
+
+                //pass selected FlashcardSet to ViewFlashcardSetFragment
+                Bundle args = new Bundle();
+                FlashcardSet flashcardSet = fcs;
+                args.putSerializable("selectedSet", flashcardSet);
+                viewFlashcardSetFragment.setArguments(args);
+
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, viewFlashcardSetFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+    }
+
+    //method to call CreateFlashcardSetFragment
+    public void addNewSet() {
+        CreateFlashcardSetFragment newFlashCardSetFragment = new CreateFlashcardSetFragment();
+
+        FragmentManager fm = getFragmentManager();
+
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_container, newFlashCardSetFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.action_bar, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_bar_search);
+        MenuItem addSet = menu.findItem(R.id.action_bar_add);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_bar_add:
+                //call CreateFlashcardSetFragment
+                addNewSet();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
