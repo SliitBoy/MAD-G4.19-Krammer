@@ -3,10 +3,13 @@ package com.simpl.krammer.flashcards;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.simpl.krammer.R;
 
@@ -17,14 +20,10 @@ import com.simpl.krammer.R;
  */
 public class FlashcardsHomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Button buttonNewCardSet;
+    private Button buttonViewCardSet;
+    private Button buttonStudyCardSet;
+    private Button buttonAllCardSet;
 
     public FlashcardsHomeFragment() {
         // Required empty public constructor
@@ -42,25 +41,91 @@ public class FlashcardsHomeFragment extends Fragment {
     public static FlashcardsHomeFragment newInstance(String param1, String param2) {
         FlashcardsHomeFragment fragment = new FlashcardsHomeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_flashcards_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_flashcards_home, container, false);
+
+        //call newFlashcardSetFragment
+        buttonNewCardSet = v.findViewById(R.id.button_new_card_set);
+        buttonNewCardSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreateFlashcardSetFragment newFlashCardSetFragment = new CreateFlashcardSetFragment();
+
+                FragmentManager fm = getFragmentManager();
+
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, newFlashCardSetFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
+        //call newFlashcardSetFragment
+        buttonViewCardSet = v.findViewById(R.id.button_view_card_set);
+        buttonViewCardSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewFlashcardSetFragment viewFlashcardSetFragment = new ViewFlashcardSetFragment();
+
+                FragmentManager fm = getFragmentManager();
+
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, viewFlashcardSetFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
+        //call StudyFlashcardSetFragment
+        buttonStudyCardSet = v.findViewById(R.id.button_study_card_set);
+        buttonStudyCardSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StudyFlashcardFragmentSet studyFlashcardFragmentSet = new StudyFlashcardFragmentSet();
+
+                FragmentManager fm = getFragmentManager();
+
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, studyFlashcardFragmentSet);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
+        //call viewAllSetsFragment
+        buttonAllCardSet = v.findViewById(R.id.button_all_card_set);
+        buttonAllCardSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewAllSetsFragment viewAllSetsFragment = new ViewAllSetsFragment();
+
+                FragmentManager fm = getFragmentManager();
+
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, viewAllSetsFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
+        return v;
     }
 }
