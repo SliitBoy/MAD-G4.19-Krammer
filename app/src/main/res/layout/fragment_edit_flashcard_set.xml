@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_marginVertical="4dp"
+    app:cardBackgroundColor="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="4dp">
+
+        <ImageButton
+            android:id="@+id/editDeleteCardButton"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/ic_round_close_24"
+            android:layout_gravity="right"
+            android:layout_margin="2dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/InputLayoutEditCardTerm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:hint="@string/Term"
+            android:textColorHint="@color/white"
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/orangeWeb"
+            app:endIconMode="clear_text"
+            app:hintAnimationEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TextInputEditTextEditCardTerm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/InputLayoutEditCardDef"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="8dp"
+            app:counterEnabled="true"
+            app:counterTextColor="@color/white"
+            app:counterMaxLength="150"
+            app:boxBackgroundColor="@color/colorPrimary"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeColor="@color/orangeWeb"
+            android:hint="@string/Definition"
+            android:textColorHint="@color/white"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TextInputEditTextEditCardDef"
+                style="@style/ThemeOverlay.MaterialComponents.Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:inputType="textMultiLine"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

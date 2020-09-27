@@ -2,12 +2,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:name="com.simpl.krammer.flashcards.CreateFlashcardSetFragment"
+    android:name="com.simpl.krammer.flashcards.EditFlashcardSetFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".flashcards.CreateFlashcardSetFragment"
+    tools:context=".flashcards.EditFlashcardSetFragment"
     android:fillViewport="true"
-    android:background="@color/charlestonGreen">
+    android:background="@color/colorPrimaryDark">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutNewTitle"
+            android:id="@+id/textInputLayoutEditTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -50,10 +50,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.060000002"
-            app:boxBackgroundMode="outline">
+            app:boxBackgroundMode="outline"
+            app:hintAnimationEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/TextInputEditTextNewTitle"
+                android:id="@+id/editTextEditTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -62,7 +63,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutNewDescp"
+            android:id="@+id/textInputLayoutEditDescp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -74,12 +75,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEditTitle"
             app:layout_constraintVertical_bias="0.00999999"
             app:boxBackgroundMode="outline">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/TextInputEditTextNewDescp"
+                android:id="@+id/editTextEditDescp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -87,24 +88,23 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/newSetRecyclerView"
+            android:id="@+id/editSetRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginRight="16dp"
 
-            android:layout_marginBottom="8dp"
             app:layoutManager="LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/newCardRecyclerButton"
+            app:layout_constraintBottom_toTopOf="@+id/editSetAddCardButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNewDescp"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEditDescp"
             app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/fragment_create_flashcard_set" />
+            tools:listitem="@layout/fragment_edit_flashcard_set" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/newCardRecyclerButton"
+            android:id="@+id/editSetAddCardButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
 
@@ -125,6 +125,20 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
 
+
+
+
+<!--<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:id="@+id/list"-->
+<!--android:name="com.simpl.krammer.flashcards.EditFlashcardSetFragment"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:layout_marginLeft="16dp"-->
+<!--android:layout_marginRight="16dp"-->
+<!--app:layoutManager="LinearLayoutManager"-->
+<!--tools:context=".flashcards.EditFlashcardSetFragment"-->
+<!--tools:listitem="@layout/fragment_edit_flashcard_set" />-->

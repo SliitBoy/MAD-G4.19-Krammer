@@ -99,7 +99,7 @@ public class CreateFlashcardSetFragment extends Fragment {
                 //add a new cardView to recyclerView in newFlashCardFragment
                 Log.d("CardSetTitle", "Inserting new card");
                 newFlashCardSet.add(new Flashcard());
-                mAdapter.notifyItemInserted(newFlashCardSet.size()- 1);
+                mAdapter.notifyItemInserted(newFlashCardSet.size() - 1);
             }
         });
 
@@ -155,7 +155,7 @@ public class CreateFlashcardSetFragment extends Fragment {
             textInputDef.setError("Definition field cannot be empty");
             return false;
             //if input exceeds max length
-        } else if (defInput.length() > 100){
+        } else if (defInput.length() > 100) {
             textInputDef.setError("Definition field cannot exceed 150 characters");
             return false;
         } else {
@@ -169,7 +169,6 @@ public class CreateFlashcardSetFragment extends Fragment {
         //TODO create new FlashCardSet with title and description
         //TODO insert savedSet into new FlashCardSet
         //TODO validate
-        //TODO toast/UI feedback
         //TODO change view to CardSetFragment
         //TODO change view to Home page if no new cards
         Log.d("SaveSet Function", "SavedSet function called");
@@ -196,6 +195,6 @@ public class CreateFlashcardSetFragment extends Fragment {
 
         //Write to Firebase
         mDatabase.push().setValue(flashCardSet);
-        Toast.makeText(view.getContext(),"Data Inserted",Toast.LENGTH_LONG).show();
+        Toast.makeText(view.getContext(), "Data Inserted", Toast.LENGTH_LONG).show();
     }
 }
