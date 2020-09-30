@@ -18,6 +18,8 @@
     <string name="done">Done</string>
     <string name="review">Review</string>
     <string name="edit">Edit</string>
+    <string name="QuizName">Quiz Name</string>
+    <string name="createQuiz">Create Quiz</string>
     <!--    Forum Strings-->
     <!--    To-Do Strings-->
     <!--    Quiz Strings-->

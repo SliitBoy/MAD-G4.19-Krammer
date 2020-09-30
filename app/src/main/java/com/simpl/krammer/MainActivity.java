@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.simpl.krammer.flashcards.FlashcardsHomeFragment;
 import com.simpl.krammer.forum.ForumFragment;
 import com.simpl.krammer.quiz.QuizFragment;
+import com.simpl.krammer.quiz.QuizSearchFragment;
 import com.simpl.krammer.todo.ToDoFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                             selectedFragment = new ForumFragment();
                             break;
                         case R.id.bottom_nav_quiz:
-                            selectedFragment = new QuizFragment();
+                            //selectedFragment = new QuizFragment();
+                            selectedFragment = new QuizSearchFragment();
                             break;
                         case R.id.bottom_nav_toDo_List:
                             selectedFragment = new ToDoFragment();
