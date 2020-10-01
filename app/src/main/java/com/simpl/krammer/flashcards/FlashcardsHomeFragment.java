@@ -1,17 +1,33 @@
 package com.simpl.krammer.flashcards;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.simpl.krammer.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,11 +35,19 @@ import com.simpl.krammer.R;
  * create an instance of this fragment.
  */
 public class FlashcardsHomeFragment extends Fragment {
+    private DatabaseReference mDatabase;
+
+    //List to hold all card sets
+    private List<FlashcardSet> flashcardSets;
+
+    // RecyclerView Objects
+    private View view;
+    private RecyclerView recyclerView;
+    private ViewAllSetsRecyclerViewAdapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     private Button buttonNewCardSet;
-    private Button buttonViewCardSet;
-    private Button buttonStudyCardSet;
-    private Button buttonAllCardSet;
+    private TextView buttonAllCardSet;
 
     public FlashcardsHomeFragment() {
         // Required empty public constructor
@@ -56,10 +80,34 @@ public class FlashcardsHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_flashcards_home, container, false);
+        view = inflater.inflate(R.layout.fragment_flashcards_home, container, false);
+
+        //Firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference("CardSets");
+        flashcardSets = new ArrayList<FlashcardSet>();
+        //get cardsets from firebase
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.e("Count " ,""+snapshot.getChildrenCount());
+                //get all children under "CardSets"
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    FlashcardSet flashcardSetTemp = dataSnapshot.getValue(FlashcardSet.class);
+                    //add to List<FlashcardSet> flashcardsSet
+                    flashcardSets.add(flashcardSetTemp);
+                }
+                //Build RecyclerView
+                buildRecycler();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //call newFlashcardSetFragment
-        buttonNewCardSet = v.findViewById(R.id.button_new_card_set);
+        buttonNewCardSet = view.findViewById(R.id.button_new_card_set);
         buttonNewCardSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,46 +120,12 @@ public class FlashcardsHomeFragment extends Fragment {
                 transaction.addToBackStack(null);
 
                 transaction.commit();
-            }
-        });
 
-        //call viewFlashcardSetFragment
-        buttonViewCardSet = v.findViewById(R.id.button_view_card_set);
-        buttonViewCardSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewFlashcardSetFragment viewFlashcardSetFragment = new ViewFlashcardSetFragment();
-
-                FragmentManager fm = getFragmentManager();
-
-                assert fm != null;
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.fragment_container, viewFlashcardSetFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
-            }
-        });
-
-        //call StudyFlashcardSetFragment
-        buttonStudyCardSet = v.findViewById(R.id.button_study_card_set);
-        buttonStudyCardSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                StudyFlashcardFragmentSet studyFlashcardFragmentSet = new StudyFlashcardFragmentSet();
-
-                FragmentManager fm = getFragmentManager();
-
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.fragment_container, studyFlashcardFragmentSet);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
             }
         });
 
         //call viewAllSetsFragment
-        buttonAllCardSet = v.findViewById(R.id.button_all_card_set);
+        buttonAllCardSet = view.findViewById(R.id.textViewAll);
         buttonAllCardSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +141,42 @@ public class FlashcardsHomeFragment extends Fragment {
             }
         });
 
-        return v;
+        return view;
+    }
+
+    public void buildRecycler() {
+        // Set the adapter
+        Context context = view.getContext();
+        recyclerView = (RecyclerView) view.findViewById(R.id.flashcardHomeRecyclerView);
+
+        layoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
+        //SnapHelper snapHelper = new PagerSnapHelper();
+        recyclerView.setLayoutManager(layoutManager);
+        //snapHelper.attachToRecyclerView(recyclerView);
+
+        //takes List<FlashCardSet> list as parameter
+        mAdapter = new ViewAllSetsRecyclerViewAdapter(flashcardSets);
+        recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new ViewAllSetsRecyclerViewAdapter.OnItemCLickListener() {
+            @Override
+            public void onItemClick(int position, FlashcardSet fcs) {
+                ViewFlashcardSetFragment viewFlashcardSetFragment = new ViewFlashcardSetFragment();
+
+                FragmentManager fm = getFragmentManager();
+
+                //pass selected FlashcardSet to ViewFlashcardSetFragment
+                Bundle args = new Bundle();
+                FlashcardSet flashcardSet = fcs;
+                args.putSerializable("selectedSet", flashcardSet);
+                viewFlashcardSetFragment.setArguments(args);
+
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, viewFlashcardSetFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
     }
 }

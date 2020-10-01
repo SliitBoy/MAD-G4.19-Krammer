@@ -37,12 +37,10 @@ import java.util.Map;
  */
 public class ViewFlashcardSetFragment extends Fragment {
 
-    private DatabaseReference mDatabase;
-
     // RecyclerView Objects
     private View view;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ViewFlashcardSetRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     private List<FlashcardSet> flashcardsSet;
@@ -106,6 +104,31 @@ public class ViewFlashcardSetFragment extends Fragment {
             }
         });
 
+        //set button to review set
+        studySetButton = view.findViewById(R.id.MaterialButtonStudySet);
+        studySetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //call study set fragment
+                StudyFlashcardFragmentSet studyFlashcardFragmentSet = new StudyFlashcardFragmentSet();
+
+                FragmentManager fm = getFragmentManager();
+
+                //pass selected FlashcardSet to ViewFlashcardSetFragment
+                Bundle args = new Bundle();
+                args.putSerializable("selectedSet", flashcardSetObj);
+                studyFlashcardFragmentSet.setArguments(args);
+
+                assert fm != null;
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, studyFlashcardFragmentSet);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
+
         return view;
     }
 
@@ -113,7 +136,7 @@ public class ViewFlashcardSetFragment extends Fragment {
     public void buildRecycler() {
         // Set the adapter
         Context context = view.getContext();
-        recyclerView = (RecyclerView) view.findViewById(R.id.viewSetRecyclerView);
+        recyclerView = view.findViewById(R.id.viewSetRecyclerView);
 
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
@@ -135,6 +158,7 @@ public class ViewFlashcardSetFragment extends Fragment {
         args.putSerializable("selectedSet", flashcardSet);
         editFlashcardSetFragment.setArguments(args);
 
+        assert fm != null;
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fragment_container, editFlashcardSetFragment);
         transaction.addToBackStack(null);

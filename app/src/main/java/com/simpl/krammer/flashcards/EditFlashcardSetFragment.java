@@ -1,10 +1,14 @@
 package com.simpl.krammer.flashcards;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,17 +17,25 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.simpl.krammer.R;
 import com.simpl.krammer.flashcards.dummy.DummyContent;
@@ -69,6 +81,7 @@ public class EditFlashcardSetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -94,6 +107,18 @@ public class EditFlashcardSetFragment extends Fragment {
 
         //build RecyclerView
         buildRecycler();
+
+        //add new card button
+        MaterialButton addNewCardButton = view.findViewById(R.id.editSetAddCardButton);
+        addNewCardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //add a new cardView to recyclerView in newFlashCardFragment
+                Log.d("CardSetTitle", "Inserting new card");
+                flashcards.add(new Flashcard());
+                mAdapter.notifyItemInserted(flashcards.size() - 1);
+            }
+        });
 
         //TODO: get and validate title
         //listeners to check changes to title and description
@@ -195,47 +220,155 @@ public class EditFlashcardSetFragment extends Fragment {
 
     //method to save set to firebase
     public void saveEditSet() {
-        //TODO create new FlashCardSet with title and description
-        //TODO insert savedSet into new FlashCardSet
-        //TODO change view to CardSetFragment
-        //TODO change view to Home page if no new cards
         Log.d("SaveSet Function", "SavedSet function called");
 
-        //firebase method to update edited set
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("CardSets");
         //List to store edited set
-        List<Flashcard> editedSet;
-
-        //TODO Validate set
-        editedSet = mAdapter.getSavedList();
+        List<Flashcard> editedSet = mAdapter.getSavedList();
         String editTitle = flashcardSet.getCardSetTitle();
         String editDescp = flashcardSet.getCardSetDescription();
-        //TODO alternative set/replace instead of add
-        final FlashcardSet newflashCardSet = new FlashcardSet(editTitle, editDescp, editedSet);
 
-        //TODO: Update Set instead of new CardSetTitle
+        final FlashcardSet editFlashCardSet = new FlashcardSet(editTitle, editDescp, editedSet);
 
-        //TODO: Update firebase by child
-//        //String key = mDatabase.child("CardSets").push().getKey();
-//        mDatabase.orderByChild("cardSetTitle").equalTo(title)
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                   String key2 = dataSnapshot.getKey();
-//                   //update firebase
-//                    mDatabase.child("MI2H4tRfVbq6h9qWkDm").updateChildren();
-//
-//                    Toast.makeText(view.getContext(), "Data Updated", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        final String checkTitle = title;
+        //firebase method to update edited set
+        mDatabase = FirebaseDatabase.getInstance().getReference("CardSets");
+        //query db for title
+        Query query = mDatabase.orderByChild("cardSetTitle") .equalTo(checkTitle);
 
+        //check for title
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    //Write to Firebase
+                    mDatabase.child(title).setValue(editFlashCardSet).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful())
+                            {
+                                Toast.makeText(view.getContext(), "Data Updated", Toast.LENGTH_LONG).show();
+                                viewEditSet(editFlashCardSet);
+                            } else if (task.isCanceled()) {
+                                Toast.makeText(view.getContext(), "Warning! Data Insertion Failed", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.action_bar_search).setVisible(false);
+        menu.findItem(R.id.action_bar_add).setVisible(false);
+        menu.findItem(R.id.action_bar_delete).setVisible(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.action_bar, menu);
+        MenuItem deleteItem = menu.findItem(R.id.action_bar_delete);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_bar_delete:
+            //call delete method
+                deleteDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void deleteDialog() {
+        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(view.getContext());
+        materialAlertDialogBuilder.setTitle(R.string.delete_set_title)
+                .setMessage(R.string.delete_set_msg).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteSet();
+            }
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        }).show();
+
+    }
+
+    private void deleteSet() {
+
+        final String checkTitle = title;
+        //firebase method to update edited set
+        mDatabase = FirebaseDatabase.getInstance().getReference("CardSets");
+        //query db for title
+        Query query = mDatabase.orderByChild("cardSetTitle") .equalTo(checkTitle);
+
+        //check for title
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    //delete from Firebase
+                    mDatabase.child(title).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful())
+                            {
+                                Toast.makeText(view.getContext(), title + " Deleted", Toast.LENGTH_LONG).show();
+                                backToViewAll();
+                            } else if (task.isCanceled()) {
+                                Toast.makeText(view.getContext(), "Warning! Data Insertion Failed", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void backToViewAll() {
+        FlashcardsHomeFragment flashcardsHomeFragment = new FlashcardsHomeFragment();
+
+        FragmentManager fm = getFragmentManager();
+
+        assert fm != null;
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_container, flashcardsHomeFragment);
+
+        transaction.commit();
+    }
+
+    private void viewEditSet(FlashcardSet editFlashCardSet) {
+        ViewFlashcardSetFragment viewFlashcardSetFragment = new ViewFlashcardSetFragment();
+
+        FragmentManager fm = getFragmentManager();
+
+        //pass selected FlashcardSet to ViewFlashcardSetFragment
+        Bundle args = new Bundle();
+        args.putSerializable("selectedSet", editFlashCardSet);
+        viewFlashcardSetFragment.setArguments(args);
+
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_container, viewFlashcardSetFragment);
+
+        transaction.commit();
     }
 }
