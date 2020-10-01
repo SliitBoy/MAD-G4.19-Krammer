@@ -4,25 +4,24 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:background="@color/dimGray"
-    android:layout_marginVertical="16dp"
-    android:layout_marginHorizontal="16dp">
+    android:background="@color/colorPrimary"
+    android:layout_marginVertical="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/dimGray">
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/cardSetTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Title"
-            android:textSize="28sp"
+            android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="@color/orangeWeb"
-            android:textAppearance="?attr/textAppearanceHeadline6"/>
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/cardSetTerms"
@@ -30,8 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="28 Terms"
-            android:textSize="26sp"
-            android:textAppearance="?attr/textAppearanceBody1" />
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textSize="26sp" />
 
         <TextView
             android:id="@+id/cardSetDescription"
@@ -39,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/Description"
-            android:textSize="24dp"
-            android:textAppearance="?attr/textAppearanceBody1" />
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textSize="24dp" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

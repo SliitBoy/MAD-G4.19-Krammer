@@ -84,6 +84,7 @@ public class FlashcardsHomeFragment extends Fragment {
 
                 FragmentManager fm = getFragmentManager();
 
+                assert fm != null;
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.fragment_container, viewFlashcardSetFragment);
                 transaction.addToBackStack(null);

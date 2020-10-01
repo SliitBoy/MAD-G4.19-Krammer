@@ -8,9 +8,12 @@ public class FlashcardSet implements Serializable {
     private List<Flashcard> cardSet;
     private String cardSetTitle;
     private String cardSetDescription;
+    //TODO remove?
+    private String setKey;
 
     //Default Constructor
     public FlashcardSet() {
+
     }
 
     // TODO: Validate if list already exists and all that
@@ -45,5 +48,13 @@ public class FlashcardSet implements Serializable {
 
     public void setCardSetDescription(String cardSetDescription) {
         this.cardSetDescription = cardSetDescription;
+    }
+
+    public String getSetKey() {
+        return setKey;
+    }
+
+    public void setSetKey(String setKey) {
+        this.setKey = setKey;
     }
 }

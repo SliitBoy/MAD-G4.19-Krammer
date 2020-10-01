@@ -3,6 +3,7 @@ package com.simpl.krammer.flashcards;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,12 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.simpl.krammer.R;
 import com.simpl.krammer.flashcards.dummy.DummyContent;
 
@@ -46,8 +53,8 @@ public class CreateFlashcardSetFragment extends Fragment {
     private MaterialButton addNewCardButton;
     private MaterialTextView saveSetButton;
 
-    private TextInputEditText textInputSetTitle;
-    private TextInputEditText textInputSetDescription;
+    private TextInputLayout textLayoutSetTitle;
+    private TextInputLayout textLayoutSetDescription;
 
     //TODO: Remove/move these to adapter?
     private TextInputLayout textInputTerm;
@@ -80,13 +87,14 @@ public class CreateFlashcardSetFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_create_flashcard_set_list, container, false);
 
-        //Firebase
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("CardSets");
-
         //initialize newFlashCardSet
         newFlashCardSet = new ArrayList<Flashcard>();
         //add an item
         newFlashCardSet.add(new Flashcard());
+
+        //initialize title and description
+        textLayoutSetTitle = view.findViewById(R.id.textInputLayoutNewTitle);
+        textLayoutSetDescription = view.findViewById(R.id.textInputLayoutNewDescp);
 
         //create recyclerView
         buildRecycler();
@@ -108,8 +116,13 @@ public class CreateFlashcardSetFragment extends Fragment {
         saveSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("CardSetTitle", "Calling saved set");
-                saveSet();
+                Log.i("clickedSave", "Clicked saved set");
+                if (!validateTitle()) {
+                    return;
+                } else {
+                    Log.i("clickedSave", "Calling check set");
+                    checkSet();
+                }
             }
         });
 
@@ -141,6 +154,7 @@ public class CreateFlashcardSetFragment extends Fragment {
             return false;
         } else {
             textInputTerm.setError(null);
+            textInputTerm.setErrorEnabled(false);
             return true;
         }
     }
@@ -160,33 +174,96 @@ public class CreateFlashcardSetFragment extends Fragment {
             return false;
         } else {
             textInputTerm.setError(null);
+            textInputTerm.setErrorEnabled(false);
             return true;
         }
     }
 
+    //TODO Validate flashCard Title in a textChanged listener
+    private boolean validateTitle() {
+        //get entered definition
+        String title = textLayoutSetTitle.getEditText().getText().toString();
+
+        if (title.isEmpty()) {
+            //if input field is empty
+            textLayoutSetTitle.setError("Tile field cannot be empty");
+            return false;
+            //if input exceeds max length
+        } else if (title.length() > 100) {
+            textLayoutSetTitle.setError("Tile field cannot exceed 100 characters");
+            return false;
+        } else {
+            textLayoutSetTitle.setError(null);
+            textLayoutSetTitle.setErrorEnabled(false);
+            return true;
+
+        }
+    }
+
+    //check if title already exists in DB
+    private void checkSet(){
+        //get user entered title
+        final String checkTitle = textLayoutSetTitle.getEditText().getText().toString();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("CardSets");
+        //query db for title
+        Query query = mDatabase.orderByChild("cardSetTitle").equalTo(checkTitle);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    //clear error
+                    textLayoutSetTitle.setError(null);
+                    textLayoutSetTitle.setErrorEnabled(false);
+
+                    String dbTitle = snapshot.child(checkTitle).child("cardSetTitle").getValue(String.class);
+
+                    if (dbTitle.equals(checkTitle)) {
+                        Log.i("clickedSave", "title does exist, not calling saveSet()");
+                        Toast.makeText(view.getContext(), "Title already exists", Toast.LENGTH_LONG).show();
+                        textLayoutSetTitle.setError("Title already exists");
+                        textLayoutSetTitle.requestFocus();
+                    } else {
+                        //if title does not already exist, save this set
+                        Log.i("clickedSave", "title does not exist, Calling saveSet()");
+                    }
+                } else {
+                    //if title does not already exist, save this set
+                    Log.i("clickedSave", "title does not exist, Calling saveSet()");
+                    saveSet();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
     //method to save set to firebase
     public void saveSet() {
-        //TODO create new FlashCardSet with title and description
-        //TODO insert savedSet into new FlashCardSet
         //TODO validate
         //TODO change view to CardSetFragment
         //TODO change view to Home page if no new cards
         Log.d("SaveSet Function", "SavedSet function called");
-        FlashcardSet flashCardSet;
-        List<Flashcard> savedSet = new ArrayList<>();
 
-        textInputSetTitle = view.findViewById(R.id.TextInputEditTextNewTitle);
-        textInputSetDescription = view.findViewById(R.id.TextInputEditTextNewDescp);
+        //get Firebase reference
+        mDatabase = FirebaseDatabase.getInstance().getReference("CardSets");
 
-        String title = textInputSetTitle.getText().toString();
-        String description = textInputSetDescription.getText().toString();
+        String title = textLayoutSetTitle.getEditText().getText().toString();
+        String description = textLayoutSetDescription.getEditText().getText().toString();
 
+        //get List<CardSet>cardSet from adapter class
+        List<Flashcard> savedCards = ((CreateFlashcardRecyclerViewAdapter) recyclerView.getAdapter()).getSavedList();
 
-        savedSet = ((CreateFlashcardRecyclerViewAdapter) recyclerView.getAdapter()).getSavedList();
+        //new FlashcardSet object
+        FlashcardSet flashCardSet = new FlashcardSet(title, description, savedCards);
 
-        flashCardSet = new FlashcardSet(title, description, savedSet);
+        //TODO: Remove logs
         Log.i("CardSetTitle", flashCardSet.getCardSetTitle());
-        Log.i("CardSetDescp", flashCardSet.getCardSetDescription());
 
         for (Flashcard flashCard : flashCardSet.getCardSet()) {
             Log.i("CardTerm", flashCard.getTerm());
@@ -194,7 +271,16 @@ public class CreateFlashcardSetFragment extends Fragment {
         }
 
         //Write to Firebase
-        mDatabase.push().setValue(flashCardSet);
-        Toast.makeText(view.getContext(), "Data Inserted", Toast.LENGTH_LONG).show();
+        mDatabase.child(title).setValue(flashCardSet).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful())
+                {
+                    Toast.makeText(view.getContext(), "Data Inserted", Toast.LENGTH_LONG).show();
+                } else if (task.isCanceled()) {
+                    Toast.makeText(view.getContext(), "Warning! Data Insertion Failed", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }
