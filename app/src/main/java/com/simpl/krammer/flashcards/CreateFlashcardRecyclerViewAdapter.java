@@ -55,7 +55,7 @@ public class CreateFlashcardRecyclerViewAdapter extends RecyclerView.Adapter<Cre
                 String term = holder.mTerm.getText().toString();
                 if (!term.isEmpty()) {
                     holder.mItem.setTerm(term);
-                    holder.mId.setText("Card " + mFlashCardSet.get(position).getTerm() + mFlashCardSet.get(position).getIndex());
+                   // holder.mId.setText("Card " + mFlashCardSet.get(position).getTerm() + mFlashCardSet.get(position).getIndex());
                 }
             }
 
@@ -104,12 +104,13 @@ public class CreateFlashcardRecyclerViewAdapter extends RecyclerView.Adapter<Cre
     }
 
     public List<Flashcard> getSavedList() {
-        return mFlashCardSet;
+         return mFlashCardSet;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mId;
+        //TODO: remove this
+        //public final TextView mId;
         public TextInputEditText mTerm;
         public TextInputEditText mDef;
         public ImageButton removeCardButton;
@@ -118,7 +119,7 @@ public class CreateFlashcardRecyclerViewAdapter extends RecyclerView.Adapter<Cre
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mId = (TextView) view.findViewById(R.id.newCardID);
+            //mId = (TextView) view.findViewById(R.id.newCardID);
             removeCardButton = (ImageButton) view.findViewById(R.id.ButtonRemove);
             mTerm = (TextInputEditText) view.findViewById(R.id.TextInputEditTextNewCardTerm);
             mDef = (TextInputEditText) view.findViewById(R.id.TextInputEditTextNewCardDef);

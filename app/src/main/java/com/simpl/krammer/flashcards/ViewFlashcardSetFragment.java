@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
@@ -46,8 +49,8 @@ public class ViewFlashcardSetFragment extends Fragment {
     private List<Flashcard> flashcards;
     private FlashcardSet flashcardSetObj;
 
-    private MaterialButton viewSetButton;
     private MaterialButton studySetButton;
+    private Button editSetButton;
 
     private TextView setTitle;
     private TextView setDescription;
@@ -65,9 +68,6 @@ public class ViewFlashcardSetFragment extends Fragment {
     @SuppressWarnings("unused")
     public static ViewFlashcardSetFragment newInstance(FlashcardSet fcs) {
         ViewFlashcardSetFragment fragment = new ViewFlashcardSetFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_COLUMN_COUNT, columnCount);
-//        fragment.setArguments(args);
         return fragment;
     }
 
@@ -97,9 +97,19 @@ public class ViewFlashcardSetFragment extends Fragment {
         //Build RecyclerView
         buildRecycler();
 
+        //set button to call editFragment
+        editSetButton = view.findViewById(R.id.editSetButton);
+        editSetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editSet();
+            }
+        });
+
         return view;
     }
 
+    //method to build RecyclerView
     public void buildRecycler() {
         // Set the adapter
         Context context = view.getContext();
@@ -111,6 +121,24 @@ public class ViewFlashcardSetFragment extends Fragment {
         //takes List<FlashCard> list as parameter
         mAdapter = new ViewFlashcardSetRecyclerViewAdapter(flashcardSetObj);
         recyclerView.setAdapter(mAdapter);
+    }
 
+    //method to call EditFlashcardSetFragment
+    private void editSet() {
+        EditFlashcardSetFragment editFlashcardSetFragment = new EditFlashcardSetFragment();
+
+        FragmentManager fm = getFragmentManager();
+
+        //pass selected FlashcardSet to ViewFlashcardSetFragment
+        Bundle args = new Bundle();
+        FlashcardSet flashcardSet = flashcardSetObj;
+        args.putSerializable("selectedSet", flashcardSet);
+        editFlashcardSetFragment.setArguments(args);
+
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_container, editFlashcardSetFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 }

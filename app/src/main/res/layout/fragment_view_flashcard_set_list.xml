@@ -13,45 +13,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_round_arrow_back_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
 
         <TextView
             android:id="@+id/TextViewFlashcardTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
 
+            android:layout_marginRight="16dp"
             android:textColor="@color/white"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/editSetButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:text="@string/edit"
             android:textColor="@color/white"
             app:icon="@drawable/ic_baseline_edit_24"
             app:iconTint="@color/white"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"/>
+            app:layout_constraintBottom_toBottomOf="@+id/TextViewFlashcardTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/TextViewFlashcardTitle"
+            app:layout_constraintTop_toTopOf="@+id/TextViewFlashcardTitle" />
 
         <TextView
             android:id="@+id/TextViewFlashcardDescription"
@@ -87,11 +82,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/viewSetRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="0dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
 
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/MaterialButtonStudySet"

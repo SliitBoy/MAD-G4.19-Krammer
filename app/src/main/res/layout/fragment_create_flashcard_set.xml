@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_marginVertical="4dp"
-    app:cardBackgroundColor="@color/dimGray">
+    app:cardBackgroundColor="@color/colorPrimary">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp">
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="4dp">
 
-        <TextView
-            android:id="@+id/newCardID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignTop="@id/InputLayoutNewCardTerm"
-            android:textSize="20sp"
-            android:textColor="@color/colorAccent"
-            />
+        <ImageButton
+            android:id="@+id/ButtonRemove"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/ic_round_close_24"
+            android:layout_gravity="right"
+            android:layout_margin="2dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/InputLayoutNewCardTerm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_marginBottom="4dp"
             android:hint="@string/Term"
-
-            app:boxBackgroundMode="none"
-            app:boxBackgroundColor="@color/dimGray"
             android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white"
-            >
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/orangeWeb"
+            app:endIconMode="clear_text"
+            app:hintAnimationEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TextInputEditTextNewCardTerm"
@@ -45,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:inputType="text" />
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,19 +49,17 @@
             android:id="@+id/InputLayoutNewCardDef"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/InputLayoutNewCardTerm"
-            android:layout_alignStart="@+id/InputLayoutNewCardTerm"
-            android:layout_alignLeft="@+id/InputLayoutNewCardTerm"
-            android:layout_alignEnd="@+id/InputLayoutNewCardTerm"
-            android:layout_alignRight="@+id/InputLayoutNewCardTerm"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="8dp"
             app:counterEnabled="true"
             app:counterTextColor="@color/white"
             app:counterMaxLength="150"
-            app:boxBackgroundColor="@color/dimGray"
-            app:boxBackgroundMode="none"
+            app:boxBackgroundColor="@color/colorPrimary"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeColor="@color/orangeWeb"
             android:hint="@string/Definition"
-            android:textColorHint="@color/white">
+            android:textColorHint="@color/white"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TextInputEditTextNewCardDef"
@@ -77,14 +71,87 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageButton
-            android:id="@+id/ButtonRemove"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_baseline_delete_24"
-            android:layout_alignParentRight="true"
-            android:clickable="true"/>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+<!--<RelativeLayout-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_margin="2dp">-->
+
+<!--<TextView-->
+<!--    android:id="@+id/newCardID"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_alignParentTop="true"-->
+<!--    android:layout_alignTop="@id/InputLayoutNewCardTerm"-->
+<!--    android:textSize="20sp"-->
+<!--    android:textColor="@color/colorAccent"-->
+<!--    />-->
+
+<!--<com.google.android.material.textfield.TextInputLayout-->
+<!--    android:id="@+id/InputLayoutNewCardTerm"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_alignParentStart="true"-->
+<!--    android:layout_alignParentLeft="true"-->
+<!--    android:layout_alignParentTop="true"-->
+<!--    android:layout_alignParentEnd="true"-->
+<!--    android:layout_alignParentRight="true"-->
+<!--    android:hint="@string/Term"-->
+
+<!--    app:boxBackgroundMode="none"-->
+<!--    app:boxBackgroundColor="@color/dimGray"-->
+<!--    android:textColorHint="@color/white"-->
+<!--    app:boxStrokeColor="@color/white"-->
+<!--    >-->
+
+<!--    <com.google.android.material.textfield.TextInputEditText-->
+<!--        android:id="@+id/TextInputEditTextNewCardTerm"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:inputType="text" />-->
+
+<!--</com.google.android.material.textfield.TextInputLayout>-->
+
+<!--<com.google.android.material.textfield.TextInputLayout-->
+<!--    android:id="@+id/InputLayoutNewCardDef"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_below="@+id/InputLayoutNewCardTerm"-->
+<!--    android:layout_alignStart="@+id/InputLayoutNewCardTerm"-->
+<!--    android:layout_alignLeft="@+id/InputLayoutNewCardTerm"-->
+<!--    android:layout_alignEnd="@+id/InputLayoutNewCardTerm"-->
+<!--    android:layout_alignRight="@+id/InputLayoutNewCardTerm"-->
+<!--    android:layout_marginTop="5dp"-->
+<!--    app:counterEnabled="true"-->
+<!--    app:counterTextColor="@color/white"-->
+<!--    app:counterMaxLength="150"-->
+<!--    app:boxBackgroundColor="@color/dimGray"-->
+<!--    app:boxBackgroundMode="none"-->
+<!--    android:hint="@string/Definition"-->
+<!--    android:textColorHint="@color/white">-->
+
+<!--    <com.google.android.material.textfield.TextInputEditText-->
+<!--        android:id="@+id/TextInputEditTextNewCardDef"-->
+<!--        style="@style/ThemeOverlay.MaterialComponents.Light"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="20sp"-->
+<!--        android:inputType="textMultiLine"/>-->
+
+<!--</com.google.android.material.textfield.TextInputLayout>-->
+
+<!--<ImageButton-->
+<!--    android:id="@+id/ButtonRemove"-->
+<!--    android:layout_width="40dp"-->
+<!--    android:layout_height="40dp"-->
+<!--    android:background="@drawable/ic_baseline_delete_24"-->
+<!--    android:layout_alignParentRight="true"-->
+<!--    android:clickable="true"/>-->
 
 
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+<!--</RelativeLayout>-->

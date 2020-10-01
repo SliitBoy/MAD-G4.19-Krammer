@@ -6,7 +6,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">#ffff</item>
-
 <!--        textinputlayout line colors-->
         <item name="colorControlNormal">#ffff</item>
         <item name="colorControlActivated">#ffff</item>
