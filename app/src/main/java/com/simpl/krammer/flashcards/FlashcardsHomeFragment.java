@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link FlashcardsHomeFragment#newInstance} factory method to
+ * Flashcards home fragment
+ * @author IT19008042
  * create an instance of this fragment.
  */
 public class FlashcardsHomeFragment extends Fragment {
@@ -47,6 +47,7 @@ public class FlashcardsHomeFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
 
     private Button buttonNewCardSet;
+    private Button buttonViewAllCardSets;
     private TextView buttonAllCardSet;
 
     public FlashcardsHomeFragment() {
@@ -65,9 +66,6 @@ public class FlashcardsHomeFragment extends Fragment {
     public static FlashcardsHomeFragment newInstance(String param1, String param2) {
         FlashcardsHomeFragment fragment = new FlashcardsHomeFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
         return fragment;
     }
 
@@ -129,15 +127,16 @@ public class FlashcardsHomeFragment extends Fragment {
         buttonAllCardSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewAllSetsFragment viewAllSetsFragment = new ViewAllSetsFragment();
+                viewAllSets();
+            }
+        });
 
-                FragmentManager fm = getFragmentManager();
-
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.fragment_container, viewAllSetsFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
+        //call viewAllSetsFragment
+        buttonViewAllCardSets = view.findViewById(R.id.button_view_all_sets);
+        buttonViewAllCardSets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewAllSets();
             }
         });
 
@@ -178,5 +177,17 @@ public class FlashcardsHomeFragment extends Fragment {
                 transaction.commit();
             }
         });
+    }
+
+    private void viewAllSets() {
+        ViewAllSetsFragment viewAllSetsFragment = new ViewAllSetsFragment();
+
+        FragmentManager fm = getFragmentManager();
+
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_container, viewAllSetsFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 }
