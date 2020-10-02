@@ -119,7 +119,7 @@ public class EditFlashcardSetFragment extends Fragment {
                 mAdapter.notifyItemInserted(flashcards.size() - 1);
             }
         });
-
+      
         //TODO: get and validate title
         //listeners to check changes to title and description
         editTextTitle.getEditText().addTextChangedListener(new TextWatcher() {
@@ -370,5 +370,6 @@ public class EditFlashcardSetFragment extends Fragment {
         transaction.replace(R.id.fragment_container, viewFlashcardSetFragment);
 
         transaction.commit();
+
     }
 }

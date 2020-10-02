@@ -94,7 +94,7 @@ public class ViewFlashcardSetFragment extends Fragment {
 
         //Build RecyclerView
         buildRecycler();
-
+      
         //set button to call editFragment
         editSetButton = view.findViewById(R.id.editSetButton);
         editSetButton.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +128,6 @@ public class ViewFlashcardSetFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -157,6 +156,7 @@ public class ViewFlashcardSetFragment extends Fragment {
         FlashcardSet flashcardSet = flashcardSetObj;
         args.putSerializable("selectedSet", flashcardSet);
         editFlashcardSetFragment.setArguments(args);
+
 
         assert fm != null;
         FragmentTransaction transaction = fm.beginTransaction();
