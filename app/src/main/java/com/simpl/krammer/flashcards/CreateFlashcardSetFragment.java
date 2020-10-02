@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -88,7 +90,7 @@ public class CreateFlashcardSetFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_create_flashcard_set_list, container, false);
 
         //initialize newFlashCardSet
-        newFlashCardSet = new ArrayList<Flashcard>();
+        newFlashCardSet = new ArrayList<>();
         //add an item
         newFlashCardSet.add(new Flashcard());
 
@@ -260,7 +262,7 @@ public class CreateFlashcardSetFragment extends Fragment {
         List<Flashcard> savedCards = ((CreateFlashcardRecyclerViewAdapter) recyclerView.getAdapter()).getSavedList();
 
         //new FlashcardSet object
-        FlashcardSet flashCardSet = new FlashcardSet(title, description, savedCards);
+        final FlashcardSet flashCardSet = new FlashcardSet(title, description, savedCards);
 
         //TODO: Remove logs
         Log.i("CardSetTitle", flashCardSet.getCardSetTitle());
@@ -277,10 +279,29 @@ public class CreateFlashcardSetFragment extends Fragment {
                 if (task.isSuccessful())
                 {
                     Toast.makeText(view.getContext(), "Data Inserted", Toast.LENGTH_LONG).show();
+                    viewNewSet(flashCardSet);
                 } else if (task.isCanceled()) {
                     Toast.makeText(view.getContext(), "Warning! Data Insertion Failed", Toast.LENGTH_LONG).show();
                 }
             }
         });
+    }
+
+    //View created set
+    private void viewNewSet(FlashcardSet flashCardSet) {
+        ViewFlashcardSetFragment viewFlashcardSetFragment = new ViewFlashcardSetFragment();
+
+        FragmentManager fm = getFragmentManager();
+
+        //pass selected FlashcardSet to ViewFlashcardSetFragment
+        Bundle args = new Bundle();
+        args.putSerializable("selectedSet", flashCardSet);
+        viewFlashcardSetFragment.setArguments(args);
+
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_container, viewFlashcardSetFragment);
+        //transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 }

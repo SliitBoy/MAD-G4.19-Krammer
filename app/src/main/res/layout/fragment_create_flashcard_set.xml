@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_marginVertical="4dp"
-    app:cardBackgroundColor="@color/colorPrimary">
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardElevation="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:background="@drawable/ic_round_close_24"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_margin="2dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -33,7 +34,11 @@
             app:boxBackgroundColor="@color/colorPrimary"
             app:boxStrokeColor="@color/orangeWeb"
             app:endIconMode="clear_text"
-            app:hintAnimationEnabled="false">
+            app:endIconTint="@color/white"
+            app:hintAnimationEnabled="false"
+            app:errorTextColor="@color/imperialRed"
+            app:errorTextAppearance="@color/imperialRed"
+            app:errorIconTint="@color/imperialRed">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TextInputEditTextNewCardTerm"
@@ -59,7 +64,12 @@
             app:boxStrokeColor="@color/orangeWeb"
             android:hint="@string/Definition"
             android:textColorHint="@color/white"
-            app:endIconMode="clear_text">
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/white"
+            app:hintAnimationEnabled="false"
+            app:errorTextColor="@color/imperialRed"
+            app:errorTextAppearance="@color/imperialRed"
+            app:errorIconTint="@color/imperialRed">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TextInputEditTextNewCardDef"

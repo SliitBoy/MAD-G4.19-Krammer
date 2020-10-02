@@ -18,6 +18,14 @@
     <string name="done">Done</string>
     <string name="review">Review</string>
     <string name="edit">Edit</string>
+    <string name="view_all">View all</string>
+    <string name="saved_sets">Saved Sets</string>
+    <string name="delete_set">Delete set</string>
+    <string name="delete_set_title">Delete this set?</string>
+    <string name="delete_set_msg">This cannot be undone.</string>
+    <string name="search">Search</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <!--    Forum Strings-->
     <!--    To-Do Strings-->
     <!--    Quiz Strings-->

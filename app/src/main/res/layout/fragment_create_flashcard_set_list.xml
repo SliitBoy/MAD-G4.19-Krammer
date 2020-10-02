@@ -13,30 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_round_arrow_back_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/buttonSaveSet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
-
             android:layout_marginRight="16dp"
             android:clickable="true"
             android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutNewTitle"
@@ -50,7 +40,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.060000002"
-            app:boxBackgroundMode="outline">
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="@color/colorPrimary"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/white"
+            app:errorTextColor="@color/imperialRed"
+            app:errorTextAppearance="@color/imperialRed"
+            app:errorIconTint="@color/imperialRed">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -75,7 +71,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutNewTitle"
             app:layout_constraintVertical_bias="0.00999999"
-            app:boxBackgroundMode="outline">
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="@color/colorPrimary"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/white"
+            app:errorTextColor="@color/imperialRed"
+            app:errorTextAppearance="@color/imperialRed"
+            app:errorIconTint="@color/imperialRed">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
