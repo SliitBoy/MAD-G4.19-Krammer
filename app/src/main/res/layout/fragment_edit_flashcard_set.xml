@@ -35,7 +35,6 @@
             app:boxBackgroundColor="@color/colorPrimary"
             app:boxStrokeColor="@color/orangeWeb"
             app:endIconMode="clear_text"
-
             app:endIconTint="@color/white"
             app:hintAnimationEnabled="false"
             app:errorTextColor="@color/imperialRed"
@@ -71,6 +70,7 @@
             app:hintAnimationEnabled="false"
             app:errorTextColor="@color/imperialRed"
             app:errorTextAppearance="@color/imperialRed"
+            app:errorIconTint="@color/imperialRed">
 
 
             <com.google.android.material.textfield.TextInputEditText
