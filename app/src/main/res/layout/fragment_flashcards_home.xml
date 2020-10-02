@@ -5,18 +5,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".flashcards.FlashcardsHomeFragment"
-    android:background="@color/orangeWeb">
+    android:background="@color/colorPrimaryDark">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="FlashCard"
-        android:textSize="30sp"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/saved_sets"
+        android:textColor="@color/white"
+        android:textSize="26sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/view_all"
+        android:clickable="true"
+        android:textSize="18sp"
+        android:textColor="@color/orangeWeb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flashcardHomeRecyclerView"
+        android:focusable="true" />
+
+    <Button
+        android:id="@+id/button_view_all_sets"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/dimGray"
+        android:text="@string/view_all"
+        app:layout_constraintBottom_toTopOf="@+id/button_new_card_set"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flashcardHomeRecyclerView"
+        app:layout_constraintVertical_bias="0.85" />
+
+    <Button
+        android:id="@+id/button_new_card_set"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/orangeWeb"
+        android:text="@string/create_new_set"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.76" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/flashcardHomeRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.047"
+        tools:listitem="@layout/fragment_view_all_sets_home" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

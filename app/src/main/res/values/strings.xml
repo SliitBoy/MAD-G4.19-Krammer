@@ -5,6 +5,29 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <!--    Flashcard Strings-->
+    <string name="flash_card">Flash Card</string>
+    <string name="card_set">Flash Card Set</string>
+    <string name="Title">Title</string>
+    <string name="Description">Description</string>
+    <string name="Term">Term</string>
+    <string name="Definition">Definition</string>
+    <string name="card_label_front">Front</string>
+    <string name="card_label_back">Back</string>
+    <string name="create_new_set">Create New Set</string>
+    <string name="add_card">Add Card</string>
+    <string name="remove_card">Remove Card</string>
+    <string name="save">Save</string>
+    <string name="done">Done</string>
+    <string name="review">Review</string>
+    <string name="edit">Edit</string>
+    <string name="view_all">View all</string>
+    <string name="saved_sets">Saved Sets</string>
+    <string name="delete_set">Delete set</string>
+    <string name="delete_set_title">Delete this set?</string>
+    <string name="delete_set_msg">This cannot be undone.</string>
+    <string name="search">Search</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <!--    Forum Strings-->
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
