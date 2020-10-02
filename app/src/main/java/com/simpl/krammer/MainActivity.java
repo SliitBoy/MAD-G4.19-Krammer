@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
                     //Replace Fragment
+                    assert selectedFragment != null;
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             selectedFragment).commit();
 
