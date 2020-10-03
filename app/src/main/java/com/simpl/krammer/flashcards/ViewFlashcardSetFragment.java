@@ -54,6 +54,7 @@ public class ViewFlashcardSetFragment extends Fragment {
     private TextView setDescription;
     private TextView numOfTerms;
 
+    private static final String ARG_PARAM1 = "selectedSet";
 
     /**
      * Created by IT19008042, N.H. Thiranjaya
@@ -66,6 +67,8 @@ public class ViewFlashcardSetFragment extends Fragment {
     @SuppressWarnings("unused")
     public static ViewFlashcardSetFragment newInstance(FlashcardSet fcs) {
         ViewFlashcardSetFragment fragment = new ViewFlashcardSetFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_PARAM1, fcs);
         return fragment;
     }
 
