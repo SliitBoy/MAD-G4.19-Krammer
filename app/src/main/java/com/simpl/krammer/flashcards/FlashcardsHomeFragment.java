@@ -30,9 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Created by IT19008042, N.H. Thiranjaya
  * Flashcards home fragment
- * @author IT19008042
- * create an instance of this fragment.
+ *
  */
 public class FlashcardsHomeFragment extends Fragment {
     private DatabaseReference mDatabase;

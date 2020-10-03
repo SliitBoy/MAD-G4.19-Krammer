@@ -9,21 +9,6 @@
     tools:context=".flashcards.StudyFlashcardFragmentSet"
     android:background="@color/colorPrimaryDark">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/studySetRecyclerView"
         android:layout_width="match_parent"
@@ -32,22 +17,11 @@
         android:minHeight="300dp"
         android:orientation="horizontal"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/ButtonFlip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar"
-        tools:listitem="@layout/fragment_study_flashcard_set" />
-
-    <Button
-        android:id="@+id/ButtonFlip"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Flip"
-        android:textStyle="bold"
-        android:backgroundTint="@color/orangeWeb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/fragment_study_flashcard_set" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

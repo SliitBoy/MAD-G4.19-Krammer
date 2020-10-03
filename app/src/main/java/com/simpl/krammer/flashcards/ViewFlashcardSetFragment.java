@@ -56,8 +56,8 @@ public class ViewFlashcardSetFragment extends Fragment {
 
 
     /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
+     * Created by IT19008042, N.H. Thiranjaya
+     * fragment to view a selected flashcard set
      */
     public ViewFlashcardSetFragment() {
     }

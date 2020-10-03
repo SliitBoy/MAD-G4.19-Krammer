@@ -21,7 +21,8 @@ import com.simpl.krammer.flashcards.dummy.DummyContent;
 import java.util.List;
 
 /**
- * A fragment representing a list of Items.
+ * Created by IT19008042, N.H. Thiranjaya
+ * Fragment to "review" a flashcard set
  */
 public class StudyFlashcardFragmentSet extends Fragment {
 

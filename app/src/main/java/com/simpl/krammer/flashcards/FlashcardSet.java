@@ -3,6 +3,11 @@ package com.simpl.krammer.flashcards;
 import java.io.Serializable;
 import java.util.List;
 
+/***
+ * Created by IT19008042, N.H. Thiranjaya
+ * FlashcardSet helper class
+ * holds List of flashcard objects
+ */
 public class FlashcardSet implements Serializable {
     //List to hold Card objects
     private List<Flashcard> cardSet;

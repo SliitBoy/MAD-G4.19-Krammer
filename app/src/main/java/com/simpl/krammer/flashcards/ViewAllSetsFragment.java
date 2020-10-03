@@ -53,8 +53,10 @@ public class ViewAllSetsFragment extends Fragment {
     private TextView numOfSets;
 
     /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
+     * Created by IT19008042, N.H. Thiranjaya
+     * Fragment retrieves all flashcard sets...
+     * from firebase and list them...
+     * has a filter function
      */
     public ViewAllSetsFragment() {
     }

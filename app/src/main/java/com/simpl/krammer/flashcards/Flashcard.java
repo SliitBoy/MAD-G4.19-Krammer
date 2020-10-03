@@ -1,5 +1,9 @@
 package com.simpl.krammer.flashcards;
 
+/***
+ * Created by IT19008042, N.H. Thiranjaya
+ * Flashcard helper class
+ */
 public class Flashcard {
     //TODO remove temp id
     private Integer index;

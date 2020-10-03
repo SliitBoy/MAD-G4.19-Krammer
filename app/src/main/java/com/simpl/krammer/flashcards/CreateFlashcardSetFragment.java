@@ -36,7 +36,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A fragment representing a list of Items.
+ * Created by IT19008042, N.H. Thiranjaya
+ * A fragment for creating new flashcard sets...
+ * creates FlashcardSet objects...
+ * saves created FlashcardSet to firebase
  */
 public class CreateFlashcardSetFragment extends Fragment {
 
@@ -146,13 +149,16 @@ public class CreateFlashcardSetFragment extends Fragment {
     }
 
     //Validate flashCard term
-    private boolean validateTerm() {
+    public boolean validateTerm(String term) {
         //get entered term
-        String termInput = textInputTerm.getEditText().getText().toString().trim();
-
+        //String termInput = textInputTerm.getEditText().getText().toString().trim();
+        String termInput = term;
         if (termInput.isEmpty()) {
             //if input field is empty
             textInputTerm.setError("Term field cannot be empty");
+            return false;
+        } else if (termInput.length() > 20) {
+            textInputTerm.setError("Term field cannot exceed 20 characters");
             return false;
         } else {
             textInputTerm.setError(null);
@@ -162,21 +168,22 @@ public class CreateFlashcardSetFragment extends Fragment {
     }
 
     //Validate flashCard Definition
-    private boolean validateDef() {
+    public boolean validateDef(String def) {
         //get entered definition
-        String defInput = textInputDef.getEditText().getText().toString().trim();
+        //String defInput = textInputDef.getEditText().getText().toString().trim();
+        String defInput = def;
 
         if (defInput.isEmpty()) {
             //if input field is empty
-            textInputDef.setError("Definition field cannot be empty");
+            //textInputDef.setError("Definition field cannot be empty");
             return false;
             //if input exceeds max length
         } else if (defInput.length() > 100) {
-            textInputDef.setError("Definition field cannot exceed 150 characters");
+            //textInputDef.setError("Definition field cannot exceed 150 characters");
             return false;
         } else {
-            textInputTerm.setError(null);
-            textInputTerm.setErrorEnabled(false);
+            //textInputTerm.setError(null);
+            //textInputTerm.setErrorEnabled(false);
             return true;
         }
     }
@@ -191,8 +198,8 @@ public class CreateFlashcardSetFragment extends Fragment {
             textLayoutSetTitle.setError("Tile field cannot be empty");
             return false;
             //if input exceeds max length
-        } else if (title.length() > 100) {
-            textLayoutSetTitle.setError("Tile field cannot exceed 100 characters");
+        } else if (title.length() > 20) {
+            textLayoutSetTitle.setError("Tile field cannot exceed 20 characters");
             return false;
         } else {
             textLayoutSetTitle.setError(null);

@@ -16,7 +16,8 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
+ * Created by IT19008042, N.H. Thiranjaya
+ * {@link RecyclerView.Adapter} that can display a {@link Flashcard}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class StudyFlashcardSetRecyclerViewAdapter extends RecyclerView.Adapter<StudyFlashcardSetRecyclerViewAdapter.ViewHolder> {

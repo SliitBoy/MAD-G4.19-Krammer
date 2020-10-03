@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
+ * Created by IT19008042, N.H. Thiranjaya
+ * {@link RecyclerView.Adapter} that can display a {@link FlashcardSet}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class ViewAllSetsRecyclerViewAdapter extends RecyclerView.Adapter<ViewAllSetsRecyclerViewAdapter.ViewHolder> implements Filterable {
