@@ -34,7 +34,9 @@ dependencies {
     //Recycler View
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     //Firebase
-    implementation 'com.google.firebase:firebase-database:19.4.0'
+    implementation 'com.google.firebase:firebase-database:19.5.0'
+   // implementation 'com.firebaseui:firebase-database-ui-database:6.0.2'
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
