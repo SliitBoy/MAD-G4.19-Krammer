@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".quiz.CurrentQuizFragment">
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="350dp"
+        android:layout_height="211dp"
+        android:layout_marginTop="70dp"
+        android:text="@string/Question"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/answer1"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:text="@string/Answer1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/answer2"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:text="@string/Answer2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answer1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/answer3"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:text="@string/Answer3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answer2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/answer4"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:text="@string/Answer4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answer3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next"
+        android:layout_width="167dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answer4" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Question {
     private int id;
     private String question;
-    private int answerindex;
     private String correct;
     private ArrayList<Answer> answerlist=new ArrayList<>();
 
@@ -21,12 +20,15 @@ public class Question {
         this.answerlist = answerlist;
     }
 
-    public Question(int id, String question, int answerindex, ArrayList answerlist,String corrrect) {
+    public Question(int id, String question, ArrayList answerlist,String corrrect) {
         this.id = id;
         this.question = question;
-        this.answerindex = answerindex;
         this.answerlist = answerlist;
         this.correct=correct;
+    }
+
+    public Question() {
+
     }
 
     public String getCorrect() {
@@ -45,13 +47,11 @@ public class Question {
         this.question = question;
     }
 
-    public void setAnswerindex(int answerindex) {
-        this.answerindex = answerindex;
-    }
-
     public void setAnswerlist(ArrayList answerlist) {
         this.answerlist = answerlist;
     }
+
+    public Answer getAnswer(int index){return this.answerlist.get(index);}
 
     public int getId() {
         return id;
@@ -59,10 +59,6 @@ public class Question {
 
     public String getQuestion() {
         return question;
-    }
-
-    public int getAnswerindex() {
-        return answerindex;
     }
 
     public ArrayList getAnswerlist() {

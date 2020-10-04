@@ -1,8 +1,9 @@
 package com.simpl.krammer.quiz;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Quiz {
+public class Quiz implements Serializable {
     private String id;
     private String name;
     private float rating;
@@ -11,6 +12,10 @@ public class Quiz {
         this.id=id;
         this.name=name;
         setRating(rating);
+    }
+
+    public Quiz() {
+
     }
 
     public void setId(String id) {
@@ -60,4 +65,8 @@ public class Quiz {
     public void removeQuestion(int questionindex){
         this.questions.remove(questionindex);
     }
+
+
+
+
 }

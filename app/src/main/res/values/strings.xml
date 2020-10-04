@@ -18,9 +18,19 @@
     <string name="done">Done</string>
     <string name="review">Review</string>
     <string name="edit">Edit</string>
-    <string name="QuizName">Quiz Name</string>
-    <string name="createQuiz">Create Quiz</string>
+
     <!--    Forum Strings-->
     <!--    To-Do Strings-->
     <!--    Quiz Strings-->
+    <string name="QuizName">Quiz Name</string>
+    <string name="createQuiz">Create Quiz</string>
+    <string name="Question">Question</string>
+    <string name="Answer1">Answer 1</string>
+    <string name="Answer2">Answer 2</string>
+    <string name="Answer3">Answer 3</string>
+    <string name="Answer4">Answer 4</string>
+    <string name="addQuestion">Add Question</string>
+    <string name="viewQuestions">View Questions</string>
+    <string name="StartButton">START</string>
+    <string name="next">Next</string>
 </resources>
