@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -20,37 +22,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.simpl.krammer.R;
+import com.simpl.krammer.flashcards.ViewFlashcardSetFragment;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class CreateForumFragment extends Fragment {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
 
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
-    /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
-     */
     /** Create variables*/
     private FragmentForumCreateListener listener;
-    private TextInputEditText Title_text;
-    private TextInputEditText Description_text;
+    private TextInputLayout Title_text;
+    private TextInputLayout Description_text;
     private MaterialButton Forum_Cancel;
     private MaterialButton Forum_Submit;
 
@@ -76,9 +67,27 @@ public class CreateForumFragment extends Fragment {
         Forum_Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CharSequence input = Title_text.getText();
-                listener.onInputCreateSent(input);
-                databaseReference = FirebaseDatabase.getInstance().getReference();
+                String title = Title_text.getEditText().getText().toString();
+                String description = Description_text.getEditText().getText().toString();
+
+                databaseReference = FirebaseDatabase.getInstance().getReference("Forum");
+
+                Forum forum = new Forum(title, description);
+
+                databaseReference.child(title).setValue(forum).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        ForumFragment forumFragment = new ForumFragment();
+
+                        FragmentManager fm = getFragmentManager();
+
+                        FragmentTransaction transaction = fm.beginTransaction();
+                        transaction.replace(R.id.fragment_container, forumFragment);
+
+                        transaction.commit();
+                    }
+                });
+
             }
         });
         return v;
