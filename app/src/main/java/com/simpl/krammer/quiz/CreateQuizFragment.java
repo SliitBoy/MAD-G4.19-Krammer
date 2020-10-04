@@ -106,8 +106,7 @@ public class CreateQuizFragment extends Fragment {
 
 
     private void writeNewQuiz() {
-
-
+        
         mDatabase.child("quiz").push().setValue(this.quiz);
     }
 
@@ -145,17 +144,15 @@ public class CreateQuizFragment extends Fragment {
     public void onAddQueButtonClicked(View view) {
         if (group.getCheckedRadioButtonId() == -1)
         {
-//            Toast.makeText(CreateQuizFragment.this, "Please long press the key", Toast.LENGTH_LONG );
-//            new Toast.makeText(this,"select an answer before submitting",Toast.LENGTH_SHORT).show();
-//            int duration=Toast.LENGTH_SHORT;
-//            Toast toast = Toast.makeText(getApplicationContext(), "select an answer before submitting", duration);
-//            toast.show();
-            // no radio buttons are checked
+            Toast toast = Toast.makeText(view.getContext(), "select an answer before submitting", Toast.LENGTH_SHORT);
+            toast.show();
         }
         else
         {
             // one of the radio buttons is checked
             int radioButtonID = group.getCheckedRadioButtonId();
+            AppCompatRadioButton radioButton= view.findViewById(radioButtonID);
+            current.setCorrect(radioButton.getText().toString());
             Answer ans = new Answer();
             ans.setAnswer(answer1.getText().toString());
             current.addAnswer(ans);
