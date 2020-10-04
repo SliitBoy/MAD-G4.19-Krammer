@@ -39,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092"
+        app:layout_constraintVertical_bias="0.192"
         app:rippleColor="#FFFFFF">
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="35dp"
             android:text="@string/add_a_title_here"
             android:textColor="@color/charlestonGreen"
             android:textSize="12sp"
@@ -56,7 +56,6 @@
             android:layout_marginLeft="30dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField_title"
             android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -74,12 +73,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginLeft="20dp">
-
             <com.google.android.material.textfield.TextInputEditText
-
+                android:id="@+id/textField_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#131313" />
+                android:layout_height="33dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="131dp"
+            android:layout_marginTop="125dp"
             android:text="@string/add_your_description_here"
             android:textColor="@color/charlestonGreen"
             android:textSize="12sp"
@@ -97,15 +94,13 @@
             android:layout_marginLeft="30dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textFieldDescription"
             android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="145dp"
+            android:layout_marginTop="140dp"
             android:hint="@string/write_something_ghost"
             android:textColorHint="@color/dimGray"
             android:textSize="12sp"
-
             app:boxBackgroundColor="@color/white"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/white"
@@ -116,11 +111,10 @@
             android:layout_marginLeft="20dp">
 
             <com.google.android.material.textfield.TextInputEditText
-
+                android:id="@+id/textFieldDescription"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
-                android:gravity="start"
-                android:textColor="#393838" />
+                android:gravity="start" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
