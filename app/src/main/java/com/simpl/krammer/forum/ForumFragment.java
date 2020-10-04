@@ -81,10 +81,7 @@ public class ForumFragment extends Fragment {
         });
 
         forumList = new ArrayList<>();
-
-
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Forum");
-
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

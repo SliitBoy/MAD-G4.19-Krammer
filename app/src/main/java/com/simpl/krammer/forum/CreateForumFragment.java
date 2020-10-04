@@ -69,25 +69,34 @@ public class CreateForumFragment extends Fragment {
             public void onClick(View view) {
                 String title = Title_text.getEditText().getText().toString();
                 String description = Description_text.getEditText().getText().toString();
-
                 databaseReference = FirebaseDatabase.getInstance().getReference("Forum");
-
                 Forum forum = new Forum(title, description);
-
                 databaseReference.child(title).setValue(forum).addOnCompleteListener(new OnCompleteListener<Void>() {
+
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         ForumFragment forumFragment = new ForumFragment();
-
                         FragmentManager fm = getFragmentManager();
-
                         FragmentTransaction transaction = fm.beginTransaction();
                         transaction.replace(R.id.fragment_container, forumFragment);
-
                         transaction.commit();
                     }
                 });
 
+            }
+        });
+
+        Forum_Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ForumFragment forumFragment = new ForumFragment();
+
+                FragmentManager fm = getFragmentManager();
+
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, forumFragment);
+
+                transaction.commit();
             }
         });
         return v;
