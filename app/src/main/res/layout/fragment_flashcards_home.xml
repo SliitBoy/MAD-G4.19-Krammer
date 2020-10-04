@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".flashcards.FlashcardsHomeFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    android:id="@+id/flashcard_home_fragment_parent">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
