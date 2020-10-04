@@ -254,11 +254,6 @@ public class CreateFlashcardSetFragment extends Fragment {
 
     //method to save set to firebase
     public void saveSet() {
-        //TODO validate
-        //TODO change view to CardSetFragment
-        //TODO change view to Home page if no new cards
-        Log.d("SaveSet Function", "SavedSet function called");
-
         //get Firebase reference
         mDatabase = FirebaseDatabase.getInstance().getReference("CardSets");
 
@@ -271,24 +266,16 @@ public class CreateFlashcardSetFragment extends Fragment {
         //new FlashcardSet object
         final FlashcardSet flashCardSet = new FlashcardSet(title, description, savedCards);
 
-        //TODO: Remove logs
-        Log.i("CardSetTitle", flashCardSet.getCardSetTitle());
-
-        for (Flashcard flashCard : flashCardSet.getCardSet()) {
-            Log.i("CardTerm", flashCard.getTerm());
-            Log.i("CardDef", flashCard.getDefinition());
-        }
-
         //Write to Firebase
         mDatabase.child(title).setValue(flashCardSet).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful())
                 {
-                    Toast.makeText(view.getContext(), "Data Inserted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Set Created", Toast.LENGTH_LONG).show();
                     viewNewSet(flashCardSet);
                 } else if (task.isCanceled()) {
-                    Toast.makeText(view.getContext(), "Warning! Data Insertion Failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Warning! Set Creation Failed", Toast.LENGTH_LONG).show();
                 }
             }
         });

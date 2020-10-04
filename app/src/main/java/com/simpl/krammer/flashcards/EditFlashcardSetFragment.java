@@ -328,7 +328,7 @@ public class EditFlashcardSetFragment extends Fragment {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful())
                             {
-                                Toast.makeText(view.getContext(), title + " Deleted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(view.getContext(), title + "Set Deleted", Toast.LENGTH_LONG).show();
                                 backToViewAll();
                             } else if (task.isCanceled()) {
                                 Toast.makeText(view.getContext(), "Warning! Delete Failed", Toast.LENGTH_LONG).show();

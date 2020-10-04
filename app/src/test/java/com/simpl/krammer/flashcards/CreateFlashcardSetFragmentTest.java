@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /***
@@ -15,10 +16,16 @@ import java.util.List;
 public class CreateFlashcardSetFragmentTest {
     private CreateFlashcardSetFragment createFlashcardSetFragment;
     private List<String> dbTitles = new ArrayList<>();
+    private String testString;
 
     @Before
     public void setup() {
         createFlashcardSetFragment = new CreateFlashcardSetFragment();
+
+        int n = 200;
+        char[] chars = new char[n];
+        Arrays.fill(chars, 'c');
+        testString = new String(chars);
     }
 
     /***
@@ -37,7 +44,7 @@ public class CreateFlashcardSetFragmentTest {
     //test case length > 20
     @Test
     public void lengthTerm() {
-        boolean result = createFlashcardSetFragment.validateTerm("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        boolean result = createFlashcardSetFragment.validateTerm(testString);
         assertFalse(result);
     }
 
@@ -51,7 +58,7 @@ public class CreateFlashcardSetFragmentTest {
     //test case length > 20
     @Test
     public void definitionLengthTest() {
-        boolean result = createFlashcardSetFragment.validateDef("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        boolean result = createFlashcardSetFragment.validateDef(testString);
         assertFalse(result);
     }
 }
