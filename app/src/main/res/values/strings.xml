@@ -107,8 +107,6 @@
     <string name="done">Done</string>
     <string name="review">Review</string>
     <string name="edit">Edit</string>
-    <string name="QuizName">Quiz Name</string>
-    <string name="createQuiz">Create Quiz</string>
     <string name="view_all">View all</string>
     <string name="saved_sets">Saved Sets</string>
     <string name="delete_set">Delete set</string>
