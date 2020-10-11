@@ -53,8 +53,10 @@ public class ViewAllSetsFragment extends Fragment {
     private TextView numOfSets;
 
     /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
+     * Created by IT19008042, N.H. Thiranjaya
+     * Fragment retrieves all flashcard sets...
+     * from firebase and list them...
+     * has a filter function
      */
     public ViewAllSetsFragment() {
     }
@@ -63,9 +65,6 @@ public class ViewAllSetsFragment extends Fragment {
     @SuppressWarnings("unused")
     public static ViewAllSetsFragment newInstance(int columnCount) {
         ViewAllSetsFragment fragment = new ViewAllSetsFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_COLUMN_COUNT, columnCount);
-//        fragment.setArguments(args);
         return fragment;
     }
 
@@ -73,10 +72,6 @@ public class ViewAllSetsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-//        if (getArguments() != null) {
-//            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-//        }
     }
 
     @Override

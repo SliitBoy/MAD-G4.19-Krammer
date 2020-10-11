@@ -14,7 +14,7 @@ import com.simpl.krammer.flashcards.dummy.DummyContent.DummyItem;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
+ * {@link RecyclerView.Adapter} that can display a {@link Flashcard}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class ViewFlashcardSetRecyclerViewAdapter extends RecyclerView.Adapter<ViewFlashcardSetRecyclerViewAdapter.ViewHolder> {

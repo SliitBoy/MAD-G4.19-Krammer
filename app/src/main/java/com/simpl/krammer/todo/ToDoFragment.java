@@ -1,66 +1,122 @@
 package com.simpl.krammer.todo;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import com.google.firebase.database.ValueEventListener;
+import com.simpl.krammer.MainActivity;
 import com.simpl.krammer.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ToDoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class ToDoFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private View view;
+    private RecyclerView recyclerView;
+    private ViewToDoRecyclerViewAdapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FloatingActionButton CreateTodo;
+    private DatabaseReference databaseReference;
+
+    private List<ToDo> toDoList;
+
 
     public ToDoFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ToDoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ToDoFragment newInstance(String param1, String param2) {
         ToDoFragment fragment = new ToDoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_to_do, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        view = inflater.inflate(R.layout.fragment_to_do, container, false);
+
+        CreateTodo = view.findViewById(R.id.create_todo);
+        CreateTodo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputFragment2 inputFragment = new InputFragment2();
+                FragmentManager fragmentManager = getFragmentManager();
+                assert fragmentManager != null;
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, inputFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+
+        });
+
+
+        toDoList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Todo");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    ToDo tempToDo = dataSnapshot.getValue(ToDo.class);
+                    toDoList.add(tempToDo);
+                }
+                Log.e("getTest", toDoList.get(0).getTask());
+                //create recyclerview
+                Context context = view.getContext();
+                recyclerView = view.findViewById(R.id.fragment_todo_recycler);
+                layoutManager = new LinearLayoutManager(context);
+                recyclerView.setLayoutManager(layoutManager);
+                mAdapter = new ViewToDoRecyclerViewAdapter(toDoList);
+                recyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return view;
     }
 }
+
+
+
+

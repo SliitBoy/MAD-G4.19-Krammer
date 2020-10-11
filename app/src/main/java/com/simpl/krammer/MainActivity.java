@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_nav);
         //Set Bottom Navigation Listener
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new FlashcardsHomeFragment()).commit();
     }
 
     //Bottom Navigation Item Selected Listener
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
                     //Replace Fragment
+                    assert selectedFragment != null;
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             selectedFragment).commit();
 

@@ -3,14 +3,22 @@ package com.simpl.krammer.flashcards;
 import java.io.Serializable;
 import java.util.List;
 
+/***
+ * Created by IT19008042, N.H. Thiranjaya
+ * FlashcardSet helper class
+ * holds List of flashcard objects
+ */
 public class FlashcardSet implements Serializable {
     //List to hold Card objects
     private List<Flashcard> cardSet;
     private String cardSetTitle;
     private String cardSetDescription;
+    //TODO remove?
+    private String setKey;
 
     //Default Constructor
     public FlashcardSet() {
+
     }
 
     // TODO: Validate if list already exists and all that
@@ -45,5 +53,13 @@ public class FlashcardSet implements Serializable {
 
     public void setCardSetDescription(String cardSetDescription) {
         this.cardSetDescription = cardSetDescription;
+    }
+
+    public String getSetKey() {
+        return setKey;
+    }
+
+    public void setSetKey(String setKey) {
+        this.setKey = setKey;
     }
 }
