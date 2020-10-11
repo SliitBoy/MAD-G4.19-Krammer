@@ -1,32 +1,33 @@
 package com.simpl.krammer.quiz;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Question {
-    private int id;
+
     private String question;
-    private int answerindex;
     private String correct;
-    private ArrayList<Answer> answerlist=new ArrayList<>();
+    private List<Answer> answerlist;
 
-    public Question(int id, String question) {
-        this.id = id;
+    public Question(String question, String correct, List<Answer> answerlist) {
+        answerlist = new ArrayList<>();
         this.question = question;
-
+        this.correct = correct;
+        this.answerlist = answerlist;
     }
 
-    public Question(int id, String question, ArrayList answerlist) {
-        this.id = id;
+    public Question(String question, List<Answer> answerlist) {
+        answerlist = new ArrayList<>();
         this.question = question;
         this.answerlist = answerlist;
     }
 
-    public Question(int id, String question, int answerindex, ArrayList answerlist,String corrrect) {
-        this.id = id;
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
         this.question = question;
-        this.answerindex = answerindex;
-        this.answerlist = answerlist;
-        this.correct=correct;
     }
 
     public String getCorrect() {
@@ -37,38 +38,20 @@ public class Question {
         this.correct = correct;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public void setAnswerindex(int answerindex) {
-        this.answerindex = answerindex;
-    }
-
-    public void setAnswerlist(ArrayList answerlist) {
-        this.answerlist = answerlist;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public int getAnswerindex() {
-        return answerindex;
-    }
-
-    public ArrayList getAnswerlist() {
+    public List<Answer> getAnswerlist() {
         return answerlist;
     }
 
+    public void setAnswerlist(List<Answer> answerlist) {
+        this.answerlist = answerlist;
+    }
+
+    public Question() {
+    }
+
+    public Answer getAnswer(int index){
+        return this.answerlist.get(index);
+    }
     public  void addAnswer(Answer ans){
         this.answerlist.add(ans);
     }

@@ -1,25 +1,23 @@
 package com.simpl.krammer.quiz;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Quiz {
-    private String id;
+public class Quiz implements Serializable {
+
     private String name;
     private float rating;
-    private ArrayList<Question> questions=new ArrayList<>();
-    public Quiz(String id,String name,float rating){
-        this.id=id;
+    private List<Question> questions;
+    public Quiz(String name,float rating){
         this.name=name;
         setRating(rating);
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Quiz() {
+
     }
 
-    public String getId() {
-        return id;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -41,11 +39,11 @@ public class Quiz {
         return rating;
     }
 
-    public ArrayList<Question> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(ArrayList<Question> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
@@ -60,4 +58,8 @@ public class Quiz {
     public void removeQuestion(int questionindex){
         this.questions.remove(questionindex);
     }
+
+
+
+
 }

@@ -1,4 +1,4 @@
-package com.simpl.krammer.quiz;
+package com.simpl.krammer.todo;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,34 +8,29 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.simpl.krammer.R;
-import com.simpl.krammer.quiz.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
- * TODO: Replace the implementation with code for your data type.
- */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class ViewToDoRecyclerViewAdapter extends RecyclerView.Adapter<ViewToDoRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Quiz> mValues;
+    private final List<ToDo> mValues;
 
-    public MyItemRecyclerViewAdapter(List<Quiz> items) {
+    public ViewToDoRecyclerViewAdapter(List<ToDo> items) {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_quiz_search, parent, false);
+                .inflate(R.layout.todo_view, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getName());
-        //holder.mContentView.setText(mValues.get(position).getId());
+        holder.mIdView.setText(mValues.get(position).getTask());
+        holder.mContentView.setText(mValues.get(position).getPriority());
     }
 
     @Override
@@ -47,18 +42,14 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public Quiz mItem;
+        public ToDo mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = (TextView) view.findViewById(R.id.todo_title_task);
+            mContentView = (TextView) view.findViewById(R.id.todo_num_task);
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
     }
 }

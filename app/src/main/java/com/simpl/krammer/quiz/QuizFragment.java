@@ -55,7 +55,7 @@ public class QuizFragment extends Fragment {
             public void onClick(View view) {
                 CreateQuizFragment nextFrag= new CreateQuizFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.Layout_container, nextFrag, "createQuizFragment")
+                        .replace(R.id.fragment_container, nextFrag, "createQuizFragment")
                         .addToBackStack(null)
                         .commit();
             }
