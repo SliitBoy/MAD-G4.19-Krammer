@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".quiz.CreateQuizFragment"
+    android:background="@color/cardview_dark_background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:text="@string/createQuiz"
+        android:id="@+id/createQuiz"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.google.android.material.button.MaterialButton>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/quizName"
+        android:layout_width="374dp"
+        android:layout_height="57dp"
+        android:hint="@string/QuizName"
+        android:textColorHint="@color/white"
+        app:boxBackgroundColor="@color/colorPrimaryDark"
+        app:boxBackgroundMode="outline"
+        app:endIconDrawable="@drawable/ic_baseline_close_24"
+        app:hintTextColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createQuiz">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/QuizText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addQuestion"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/addQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quizName">
+
+    </com.google.android.material.button.MaterialButton>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/question"
+        android:layout_width="332dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/Question"
+        android:textColorHint="@color/white"
+        app:boxBackgroundColor="@color/colorPrimaryDark"
+        app:boxBackgroundMode="outline"
+        app:endIconDrawable="@drawable/ic_baseline_close_24"
+        app:hintTextColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addQuestion">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Question"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="401dp"
+        android:layout_height="324dp"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question">
+
+        <RadioGroup
+            android:id="@+id/group"
+            android:layout_width="97dp"
+            android:layout_height="298dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/answer1radio"
+                android:layout_width="88dp"
+                android:layout_height="74dp"
+                android:background="@color/cardview_shadow_end_color"/>
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/answer2radio"
+                android:layout_width="88dp"
+                android:layout_height="74dp"
+                android:background="@color/cardview_shadow_end_color"/>
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/answer3radio"
+                android:layout_width="88dp"
+                android:layout_height="74dp"
+                android:background="@color/cardview_shadow_end_color"/>
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/answer4radio"
+                android:layout_width="88dp"
+                android:layout_height="74dp"
+                android:background="@color/cardview_shadow_end_color"/>
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Answers"
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="10dp"
+            android:hint="@string/Answer1"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@color/colorPrimaryDark"
+            app:endIconDrawable="@drawable/ic_baseline_close_24"
+            app:hintTextColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/answer1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Answers2"
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="10dp"
+            android:hint="@string/Answer2"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@color/colorPrimaryDark"
+            app:endIconDrawable="@drawable/ic_baseline_close_24"
+            app:hintTextColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Answers">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/answer2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Answers3"
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="10dp"
+            android:hint="@string/Answer3"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@color/colorPrimaryDark"
+            app:endIconDrawable="@drawable/ic_baseline_close_24"
+            app:hintTextColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Answers2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/answer3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Answers4"
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="10dp"
+            android:hint="@string/Answer4"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@color/colorPrimaryDark"
+            app:endIconDrawable="@drawable/ic_baseline_close_24"
+            app:hintTextColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Answers3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/answer4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewQuestions"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/viewQuestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
