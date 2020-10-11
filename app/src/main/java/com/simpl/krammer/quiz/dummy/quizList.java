@@ -22,7 +22,7 @@ public class quizList {
         answerlist.add(ans2);
         answerlist.add(ans3);
         answerlist.add(ans4);
-        q.addQuestion(new Question(1,"q1",answerlist,"a1"));
+        q.addQuestion(new Question("q1","a1",answerlist));
 
 
 
@@ -35,7 +35,7 @@ public class quizList {
         answerlist.add(ans2);
         answerlist.add(ans3);
         answerlist.add(ans4);
-        q.addQuestion(new Question(1,"q2",answerlist,"a1"));
+        q.addQuestion(new Question("q2","a1",answerlist));
 
 
 
@@ -48,7 +48,7 @@ public class quizList {
         answerlist.add(ans2);
         answerlist.add(ans3);
         answerlist.add(ans4);
-        q.addQuestion(new Question(1,"q3",answerlist,"a1"));
+        q.addQuestion(new Question("q3","a1",answerlist));
 
 
 
@@ -61,7 +61,7 @@ public class quizList {
         answerlist.add(ans2);
         answerlist.add(ans3);
         answerlist.add(ans4);
-        q.addQuestion(new Question(1,"q4",answerlist,"a1"));
+        q.addQuestion(new Question("q4","a1",answerlist));
         quizlist.add(q);
     }
 

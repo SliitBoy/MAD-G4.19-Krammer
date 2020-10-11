@@ -83,7 +83,7 @@ public class CreateQuizFragment extends Fragment {
         viewQuestionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewQuestionsFragment nextFrag=new ViewQuestionsFragment(quiz.getQuestions());
+                ViewQuestionsFragment nextFrag=new ViewQuestionsFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, nextFrag, "createQuizFragment")
                         .addToBackStack(null)
