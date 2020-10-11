@@ -11,8 +11,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/studySetRecyclerView"
-        android:layout_width="350dp"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="500dp"
+        android:minHeight="300dp"
         android:orientation="horizontal"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,14 +23,5 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/fragment_study_flashcard_set" />
 
-    <Button
-        android:id="@+id/ButtonFlip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studySetRecyclerView"
-        android:text="Flip"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

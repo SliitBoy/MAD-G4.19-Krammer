@@ -4,13 +4,20 @@
     <item
         android:id="@+id/action_bar_search"
         android:icon="@drawable/ic_round_search_24"
-        android:title="Search"
+        android:title="@string/search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item
         android:id="@+id/action_bar_add"
         android:icon="@drawable/ic_baseline_add_circle_24"
-        android:title="New Set"
+        android:title="@string/create_new_set"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
+    <item
+        android:id="@+id/action_bar_delete"
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:title="@string/delete_set"
+        android:visible="false"
         app:showAsAction="ifRoom|collapseActionView"/>
 </menu>
