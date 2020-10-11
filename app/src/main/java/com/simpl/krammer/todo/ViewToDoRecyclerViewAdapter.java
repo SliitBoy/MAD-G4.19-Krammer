@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.simpl.krammer.R;
-import com.simpl.krammer.todo.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
