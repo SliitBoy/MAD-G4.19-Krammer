@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".flashcards.ViewAllSetsFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    android:id="@+id/flashcard_view_all_fragment_parent">
 
 
     <TextView
@@ -28,6 +29,10 @@
         android:id="@+id/allSetsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.simpl.krammer.R;
@@ -15,12 +16,13 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem}.
+ * Created by IT19008042, N.H. Thiranjaya
+ * {@link RecyclerView.Adapter} that can display a {@link Flashcard}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class StudyFlashcardSetRecyclerViewAdapter extends RecyclerView.Adapter<StudyFlashcardSetRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Flashcard> mValues;
     private OnItemCLickListener mListener;
 
     public interface OnItemCLickListener {
@@ -31,7 +33,7 @@ public class StudyFlashcardSetRecyclerViewAdapter extends RecyclerView.Adapter<S
         mListener = listener;
     }
 
-    public StudyFlashcardSetRecyclerViewAdapter(List<DummyItem> items) {
+    public StudyFlashcardSetRecyclerViewAdapter(List<Flashcard> items) {
         mValues = items;
     }
 
@@ -45,9 +47,8 @@ public class StudyFlashcardSetRecyclerViewAdapter extends RecyclerView.Adapter<S
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
+        holder.mTerm.setText(mValues.get(position).getTerm());
+        holder.mDefinition.setText(mValues.get(position).getDefinition());
     }
 
     @Override
@@ -57,18 +58,18 @@ public class StudyFlashcardSetRecyclerViewAdapter extends RecyclerView.Adapter<S
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView mTerm;
+        public final TextView mDefinition;
+        public Flashcard mItem;
         public EasyFlipView mEasyFlipView;
 
         public ViewHolder(View view, final OnItemCLickListener listener) {
             super(view);
             mView = view;
             //set to front TextView
-            mIdView = (TextView) view.findViewById(R.id.flashcardFrontTextView);
+            mTerm = (TextView) view.findViewById(R.id.flashcardFrontTextView);
             //set to back TextView
-            mContentView = (TextView) view.findViewById(R.id.flashcardBackTextView);
+            mDefinition = (TextView) view.findViewById(R.id.flashcardBackTextView);
 
             mEasyFlipView = itemView.findViewById(R.id.studyEasyFlip);
 
@@ -84,11 +85,6 @@ public class StudyFlashcardSetRecyclerViewAdapter extends RecyclerView.Adapter<S
                     }
                 }
             });
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
         }
     }
 }
