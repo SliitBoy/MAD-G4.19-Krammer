@@ -4,18 +4,22 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -25,20 +29,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.simpl.krammer.R;
+import com.simpl.krammer.flashcards.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by IT19008042, N.H. Thiranjaya
- * Flashcards home fragment
- *
+ * A fragment representing a list of Items.
  */
-public class FlashcardsHomeFragment extends Fragment {
-    private DatabaseReference mDatabase;
+public class ViewAllSetsFragment extends Fragment {
 
-    //List to hold all card sets
-    private List<FlashcardSet> flashcardSets;
+    private DatabaseReference mDatabase;
 
     // RecyclerView Objects
     private View view;
@@ -46,43 +47,44 @@ public class FlashcardsHomeFragment extends Fragment {
     private ViewAllSetsRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private Button buttonNewCardSet;
-    private Button buttonViewAllCardSets;
-    private TextView buttonAllCardSet;
+    //List to hold all card sets
+    private List<FlashcardSet> flashcardsSet;
 
-    public FlashcardsHomeFragment() {
-        // Required empty public constructor
-    }
+    private TextView numOfSets;
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FlashcardsHomeFragment.
+     * Created by IT19008042, N.H. Thiranjaya
+     * Fragment retrieves all flashcard sets...
+     * from firebase and list them...
+     * has a filter function
      */
-    // TODO: Rename and change types and number of parameters
-    public static FlashcardsHomeFragment newInstance(String param1, String param2) {
-        FlashcardsHomeFragment fragment = new FlashcardsHomeFragment();
-        Bundle args = new Bundle();
+    public ViewAllSetsFragment() {
+    }
+
+    // TODO: Customize parameter initialization
+    @SuppressWarnings("unused")
+    public static ViewAllSetsFragment newInstance(int columnCount) {
+        ViewAllSetsFragment fragment = new ViewAllSetsFragment();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_flashcards_home, container, false);
+        view = inflater.inflate(R.layout.fragment_view_all_sets_list, container, false);
 
         //Firebase
-        mDatabase = FirebaseDatabase.getInstance().getReference("CardSets");
-        flashcardSets = new ArrayList<FlashcardSet>();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("CardSets");
+
+        flashcardsSet = new ArrayList<FlashcardSet>();
+        numOfSets = view.findViewById(R.id.TextViewSetNumber);
+
         //get cardsets from firebase
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -92,8 +94,11 @@ public class FlashcardsHomeFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     FlashcardSet flashcardSetTemp = dataSnapshot.getValue(FlashcardSet.class);
                     //add to List<FlashcardSet> flashcardsSet
-                    flashcardSets.add(flashcardSetTemp);
+                    flashcardsSet.add(flashcardSetTemp);
                 }
+
+                Log.e("getTest " ,""+flashcardsSet.get(0).getCardSetTitle());
+                numOfSets.setText(flashcardsSet.size() + " Sets");
                 //Build RecyclerView
                 buildRecycler();
             }
@@ -104,57 +109,19 @@ public class FlashcardsHomeFragment extends Fragment {
             }
         });
 
-        //call newFlashcardSetFragment
-        buttonNewCardSet = view.findViewById(R.id.button_new_card_set);
-        buttonNewCardSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CreateFlashcardSetFragment newFlashCardSetFragment = new CreateFlashcardSetFragment();
-
-                FragmentManager fm = getFragmentManager();
-
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.fragment_container, newFlashCardSetFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
-
-            }
-        });
-
-        //call viewAllSetsFragment
-        buttonAllCardSet = view.findViewById(R.id.textViewAll);
-        buttonAllCardSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewAllSets();
-            }
-        });
-
-        //call viewAllSetsFragment
-        buttonViewAllCardSets = view.findViewById(R.id.button_view_all_sets);
-        buttonViewAllCardSets.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewAllSets();
-            }
-        });
-
         return view;
     }
 
     public void buildRecycler() {
         // Set the adapter
         Context context = view.getContext();
-        recyclerView = (RecyclerView) view.findViewById(R.id.flashcardHomeRecyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.allSetsRecyclerView);
 
-        layoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-        //SnapHelper snapHelper = new PagerSnapHelper();
+        layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
-        //snapHelper.attachToRecyclerView(recyclerView);
 
         //takes List<FlashCardSet> list as parameter
-        mAdapter = new ViewAllSetsRecyclerViewAdapter(flashcardSets);
+        mAdapter = new ViewAllSetsRecyclerViewAdapter(flashcardsSet);
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new ViewAllSetsRecyclerViewAdapter.OnItemCLickListener() {
@@ -179,15 +146,53 @@ public class FlashcardsHomeFragment extends Fragment {
         });
     }
 
-    private void viewAllSets() {
-        ViewAllSetsFragment viewAllSetsFragment = new ViewAllSetsFragment();
+    //method to call CreateFlashcardSetFragment
+    public void addNewSet() {
+        CreateFlashcardSetFragment newFlashCardSetFragment = new CreateFlashcardSetFragment();
 
         FragmentManager fm = getFragmentManager();
 
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.fragment_container, viewAllSetsFragment);
+        transaction.replace(R.id.fragment_container, newFlashCardSetFragment);
         transaction.addToBackStack(null);
 
         transaction.commit();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.action_bar, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_bar_search);
+        MenuItem addSet = menu.findItem(R.id.action_bar_add);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_bar_add:
+                //call CreateFlashcardSetFragment
+                addNewSet();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
