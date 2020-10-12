@@ -75,36 +75,36 @@ public class QuizSearchFragment extends Fragment {
         quizlist=new ArrayList<>();
 
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                     @Override
-                                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                         Log.e("Count ", "" + snapshot.getChildrenCount());
-                                                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                             Quiz quizTemp = dataSnapshot.getValue(Quiz.class);
-                                                             quizlist.add(quizTemp);
-                                                         }
-                                                         if (view instanceof RecyclerView) {
-                                                             Context context = view.getContext();
-                                                             RecyclerView recyclerView = (RecyclerView) view;
-                                                             LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-                                                             recyclerView.setLayoutManager(layoutManager);
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.e("Count ", "" + snapshot.getChildrenCount());
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Quiz quizTemp = dataSnapshot.getValue(Quiz.class);
+                    quizlist.add(quizTemp);
+                }
+                if (view instanceof RecyclerView) {
+                    Context context = view.getContext();
+                    RecyclerView recyclerView = (RecyclerView) view;
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+                    recyclerView.setLayoutManager(layoutManager);
 
-//                                                             if (mColumnCount <= 1) {
-//                                                                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//                                                             } else {
-//                                                                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-//                                                             }
-                                                             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(quizlist));
-                                                         }
-//                                                         Log.e("getTest ", "" + quizlist.get(0).getName());
-//                                                         numOfSets.setText(flashcardsSet.size() + " Sets");
-//                                                         buildRecycler();
-                                                     }
+//                   if (mColumnCount <= 1) {
+//                      recyclerView.setLayoutManager(new LinearLayoutManager(context));
+//                  } else {
+//                      recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+//                   }
+                    recyclerView.setAdapter(new MyItemRecyclerViewAdapter(quizlist));
+                    }
+//                  Log.e("getTest ", "" + quizlist.get(0).getName());
+//                  numOfSets.setText(flashcardsSet.size() + " Sets");
+//                  buildRecycler();
+                    }
 
-                                                     @Override
-                                                     public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                                                     }
-                                                 });
+                }
+                });
             // Set the adapter
 
         return view;

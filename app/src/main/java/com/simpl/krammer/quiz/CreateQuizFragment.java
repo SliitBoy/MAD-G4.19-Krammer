@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.simpl.krammer.MainActivity;
@@ -31,12 +32,13 @@ public class CreateQuizFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    private TextInputEditText answer1,answer2,answer3,answer4,question,quiztext;
+    private TextInputLayout answers1,answers2,answers3,answers4,Question,Quiz;
+    private TextInputEditText answer1input,answer2input,answer3input,answer4input,question,quiztext;
     private RadioGroup group;
     private Quiz quiz=new Quiz();
     private Question current=new Question();
     private DatabaseReference mDatabase;
+    private ArrayList<Question> questionlist=new ArrayList<>();
     // TODO: Rename and change types of parameters
 
 
@@ -66,17 +68,28 @@ public class CreateQuizFragment extends Fragment {
         // Inflate the layout for this fragment
         mDatabase = FirebaseDatabase.getInstance().getReference();
         group=v.findViewById(R.id.group);
-        answer1=v.findViewById(R.id.answer1);
-        answer2=v.findViewById(R.id.answer2);
-        answer3=v.findViewById(R.id.answer3);
-        answer4=v.findViewById(R.id.answer4);
+//        answers1=(TextInputLayout) v.findViewById(R.id.Answers1);
+//        answers2=(TextInputLayout)v.findViewById(R.id.Answers2);
+//        answers3=(TextInputLayout)v.findViewById(R.id.Answers3);
+//        answers4=(TextInputLayout)v.findViewById(R.id.Answers4);
+        Question=v.findViewById(R.id.question);
+        Quiz=v.findViewById(R.id.quizName);
+        answer1input=v.findViewById(R.id.answer1input);
+        answer2input=v.findViewById(R.id.answer2input);
+        answer3input=v.findViewById(R.id.answer3input);
+        answer4input=v.findViewById(R.id.answer4input);
         question=v.findViewById(R.id.Question);
         quiztext=v.findViewById(R.id.QuizText);
         MaterialButton addQuestionButton= v.findViewById(R.id.addQuestion);
         addQuestionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onAddQueButtonClicked(view);
+                try {
+                    onAddQueButtonClicked(view);
+                }catch (Exception e){
+                    Log.w("onAddQueButtonClicked", "onClick: ", e);
+                }
+
             }
         });
         MaterialButton viewQuestionsButton=v.findViewById(R.id.viewQuestions);
@@ -106,42 +119,14 @@ public class CreateQuizFragment extends Fragment {
 
 
     private void writeNewQuiz() {
-        
+        quiz= new Quiz(Quiz.getEditText().getText().toString(),0,questionlist);
+
         mDatabase.child("quiz").push().setValue(this.quiz);
     }
 
 
-//    public void onRadioButtonClicked(View view) {
-//    answer1=view.findViewById(R.id.answer1);
-//    answer2=view.findViewById(R.id.answer2);
-//    answer3=view.findViewById(R.id.answer3);
-//    answer4=view.findViewById(R.id.answer4);
-//        // Is the button now checked?
-//
-//        boolean checked = ((AppCompatRadioButton) view).isChecked();
-//
-//        // Check which radio button was clicked
-//        switch(view.getId()) {
-//            case R.id.answer1radio:
-//                if (checked){
-//                    current.setCorrect(answer1.getText().toString());
-//                }
-//                    break;
-//            case R.id.answer2radio:
-//                if (checked)
-//                    current.setCorrect(answer2.getText().toString());
-//                    break;
-//            case R.id.answer3radio:
-//                if (checked)
-//                    current.setCorrect(answer3.getText().toString());
-//                    break;
-//            case R.id.answer4radio:
-//                if (checked)
-//                    current.setCorrect(answer4.getText().toString());
-//                    break;
-//        }
-//    }
-    public void onAddQueButtonClicked(View view) {
+
+    public void onAddQueButtonClicked(View view)throws NullPointerException {
         if (group.getCheckedRadioButtonId() == -1)
         {
             Toast toast = Toast.makeText(view.getContext(), "select an answer before submitting", Toast.LENGTH_SHORT);
@@ -152,26 +137,40 @@ public class CreateQuizFragment extends Fragment {
             // one of the radio buttons is checked
             int radioButtonID = group.getCheckedRadioButtonId();
             AppCompatRadioButton radioButton= view.findViewById(radioButtonID);
-            current.setCorrect(radioButton.getText().toString());
-            Answer ans = new Answer();
-            ans.setAnswer(answer1.getText().toString());
-            current.addAnswer(ans);
-            Log.d("addQueOnclickAnswer1", ans.getAnswer());
-            ans.setAnswer(answer2.getText().toString());
-            current.addAnswer(ans);
-            Log.d("addQueOnclickAnswer1", ans.getAnswer());
-            ans.setAnswer(answer3.getText().toString());
-            current.addAnswer(ans);
-            Log.d("addQueOnclickAnswer1", ans.getAnswer());
-            ans.setAnswer(answer4.getText().toString());
-            current.addAnswer(ans);
-            Log.d("addQueOnclickAnswer1", ans.getAnswer());
-            current.setQuestion(question.getText().toString());
-            quiz.addQuestion(current);
-            for (int i = 0; i <4 ; i++) {
-                Log.d( "CreatequizAddQue", "onAddQueButtonClicked:  "+current.getAnswerlist().get(i));
+            if(radioButtonID==R.id.answer1radio){
+                current.setCorrect(answer1input.getText().toString());
+            }else if(radioButtonID==R.id.answer2radio){
+                current.setCorrect(answer2input.getText().toString());
+            }else if(radioButtonID==R.id.answer3radio){
+                current.setCorrect(answer3input.getText().toString());
+            }else if(radioButtonID==R.id.answer4radio){
+                current.setCorrect(answer4input.getText().toString());
+            }else {
+                Toast toast = Toast.makeText(view.getContext(), "An unexpected error occurred", Toast.LENGTH_SHORT);
+                toast.show();
             }
+            ArrayList<Answer> anslist =new ArrayList<>();
+            String ans1=answer1input.getText().toString();
+            Log.i("click", "onAddQueButtonClicked: "+ans1);
+            String ans2=answer2input.getText().toString();
+            Log.i("click", "onAddQueButtonClicked: "+ans2);
+            String ans3=answer3input.getText().toString();
+            Log.i("click", "onAddQueButtonClicked: "+ans3);
+            String ans4=answer4input.getText().toString();
+            Log.i("click", "onAddQueButtonClicked: "+ans4);
+            anslist.add(new Answer(ans1));
+            anslist.add(new Answer(ans2));
+            anslist.add(new Answer(ans3));
+            anslist.add(new Answer(ans4));
+            current.setAnswerlist(anslist);
+            questionlist.add(current);
 
+
+
+            for (int i = 0; i <4 ; i++) {
+                Log.d( "CreatequizAddQue", "onAddQueButtonClicked -- answers:  "+current.getAnswerlist().get(i));
+            }
+            current=new Question();
 
         }
     }

@@ -10,8 +10,15 @@ public class Quiz implements Serializable {
     private float rating;
     private List<Question> questions;
     public Quiz(String name,float rating){
+        questions = new ArrayList<>();
         this.name=name;
         setRating(rating);
+    }
+
+    public Quiz(String name, float rating, List<Question> questions) {
+        this.name = name;
+        this.rating = rating;
+        this.questions = questions;
     }
 
     public Quiz() {

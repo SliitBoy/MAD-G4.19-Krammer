@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 import com.simpl.krammer.R;
 import com.simpl.krammer.flashcards.FlashcardSet;
-import com.simpl.krammer.quiz.dummy.quizList;
+//import com.simpl.krammer.quiz.dummy.quizList;
 
 import java.util.Iterator;
 

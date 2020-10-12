@@ -134,7 +134,7 @@
         </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Answers"
+            android:id="@+id/Answers1"
             android:layout_width="300dp"
             android:layout_height="0dp"
             android:layout_marginStart="90dp"
@@ -150,10 +150,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/answer1"
+                android:id="@+id/answer1input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="textPersonName" />
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,13 +171,13 @@
             app:hintTextColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Answers">
+            app:layout_constraintTop_toBottomOf="@+id/Answers1">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/answer2"
+                android:id="@+id/answer2input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="textPersonName" />
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -198,10 +198,10 @@
             app:layout_constraintTop_toBottomOf="@+id/Answers2">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/answer3"
+                android:id="@+id/answer3input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="textPersonName" />
+                android:inputType="text" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -223,10 +223,10 @@
             app:layout_constraintTop_toBottomOf="@+id/Answers3">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/answer4"
+                android:id="@+id/answer4input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="textPersonName" />
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

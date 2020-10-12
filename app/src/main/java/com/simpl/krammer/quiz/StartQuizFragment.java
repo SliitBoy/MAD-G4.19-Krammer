@@ -16,7 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.simpl.krammer.R;
 import com.simpl.krammer.flashcards.FlashcardSet;
 import com.simpl.krammer.flashcards.ViewFlashcardSetFragment;
-import com.simpl.krammer.quiz.dummy.quizList;
+//import com.simpl.krammer.quiz.dummy.quizList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +29,7 @@ public class StartQuizFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Quiz quiz= new quizList().quizlist.get(0);
+//    Quiz quiz= new quizList().quizlist.get(0);
     TextView questionnum;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -37,9 +37,9 @@ public class StartQuizFragment extends Fragment {
 
     public StartQuizFragment(Quiz quiz) {
         // Required empty public constructor
-        this.quiz=quiz;
+//        this.quiz=quiz;
         //remove the line after this
-        this.quiz= new quizList().quizlist.get(0);
+//        this.quiz= new quizList().quizlist.get(0);
     }
 
     public StartQuizFragment() {
@@ -78,44 +78,44 @@ public class StartQuizFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_start_quiz, container, false);
-        MaterialButton button = v.findViewById(R.id.startquiz);
-        questionnum=v.findViewById(R.id.Questionnum);
-        questionnum.setText(quiz.getQuestions().size()+" Questions");
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                CurrentQuizFragment nextFrag= new CurrentQuizFragment();
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                Bundle bundle = new Bundle();
-//                Quiz q = quiz;
-//                bundle.putSerializable("quiz", q);
-//                nextFrag.setArguments(bundle);
-//                nextFrag.replace(R.id.fragment_container, nextFrag, "createQuizFragment")
-//                nextFrag.addToBackStack(null)
-//                nextFrag.commit();
-                CurrentQuizFragment nextFrag = new CurrentQuizFragment();
-
-                FragmentManager fm = getFragmentManager();
-
-                Bundle args = new Bundle();
-                Quiz q=quiz;
-
-                args.putSerializable("quiz", q);
-
-                nextFrag.setArguments(args);
-                FragmentTransaction ft =  getActivity().getSupportFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.replace(R.id.fragment_container, nextFrag);
-                ft.addToBackStack(null);
-
-                ft.commit();
-//                FragmentTransaction transaction = fm.beginTransaction();
-//                transaction.replace(R.id.fragment_container, nextFrag);
-//                transaction.addToBackStack(null);
+//        MaterialButton button = v.findViewById(R.id.startquiz);
+//        questionnum=v.findViewById(R.id.Questionnum);
+//        questionnum.setText(quiz.getQuestions().size()+" Questions");
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                CurrentQuizFragment nextFrag= new CurrentQuizFragment();
+////                getActivity().getSupportFragmentManager().beginTransaction()
+////                Bundle bundle = new Bundle();
+////                Quiz q = quiz;
+////                bundle.putSerializable("quiz", q);
+////                nextFrag.setArguments(bundle);
+////                nextFrag.replace(R.id.fragment_container, nextFrag, "createQuizFragment")
+////                nextFrag.addToBackStack(null)
+////                nextFrag.commit();
+//                CurrentQuizFragment nextFrag = new CurrentQuizFragment();
 //
-//                transaction.commit();
-            }
-        });
+//                FragmentManager fm = getFragmentManager();
+//
+//                Bundle args = new Bundle();
+//                Quiz q=quiz;
+//
+//                args.putSerializable("quiz", q);
+//
+//                nextFrag.setArguments(args);
+//                FragmentTransaction ft =  getActivity().getSupportFragmentManager().beginTransaction();
+//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                ft.replace(R.id.fragment_container, nextFrag);
+//                ft.addToBackStack(null);
+//
+//                ft.commit();
+////                FragmentTransaction transaction = fm.beginTransaction();
+////                transaction.replace(R.id.fragment_container, nextFrag);
+////                transaction.addToBackStack(null);
+////
+////                transaction.commit();
+//            }
+//        });
         return v;
     }
 }
